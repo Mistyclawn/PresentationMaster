@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Full Presentation Analysis</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111418",
+                        "surface-dark": "#1C2128",
+                        "surface-dark-highlight": "#252b33",
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-[#283039] bg-white dark:bg-[#111418] px-6 lg:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">analytics</span>
+</div>
+<div class="flex flex-col">
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Analysis Report</h2>
+<div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+<span>Presentation Master</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span>Q3 2024 Financial Overview</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-slate-100 dark:bg-[#283039] text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-[#3b4652] transition-colors text-sm font-medium">
+<span class="material-symbols-outlined mr-2 text-[18px]">arrow_back</span>
+                Back to Master
+            </button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined mr-2 text-[18px]">check</span>
+<span>Apply All Fixes</span>
+</button>
+</div>
+</header>
+<main class="flex-1 layout-container flex flex-col p-4 lg:p-8 max-w-[1600px] mx-auto w-full gap-8">
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="lg:col-span-3 bg-white dark:bg-surface-dark rounded-2xl p-6 border border-slate-200 dark:border-border-dark shadow-sm flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent"></div>
+<div class="relative z-10 size-40 rounded-full border-[6px] border-slate-100 dark:border-slate-800 flex items-center justify-center">
+<svg class="absolute inset-0 rotate-[-90deg]" viewBox="0 0 100 100">
+<circle class="text-primary" cx="50" cy="50" fill="transparent" r="46" stroke="currentColor" stroke-dasharray="290" stroke-dashoffset="60" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="flex flex-col items-center">
+<span class="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">78</span>
+<span class="text-xs font-bold uppercase text-slate-500 tracking-wider mt-1">out of 100</span>
+</div>
+</div>
+<h3 class="mt-4 text-lg font-bold text-slate-900 dark:text-white">Overall Quality</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 text-center mt-1">Good start, but narrative flow needs attention.</p>
+</div>
+<div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-slate-200 dark:border-border-dark shadow-sm flex flex-col justify-between group hover:border-emerald-500/50 transition-colors">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+<span class="material-symbols-outlined">style</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Consistency</h4>
+<span class="text-xs text-emerald-500 font-medium">Great</span>
+</div>
+</div>
+<span class="text-2xl font-bold text-emerald-500">92%</span>
+</div>
+<div class="mt-4">
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 92%"></div>
+</div>
+<p class="text-xs text-slate-500 mt-3">Design elements are largely uniform. 2 minor font issues detected.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-slate-200 dark:border-border-dark shadow-sm flex flex-col justify-between group hover:border-amber-500/50 transition-colors">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Readability</h4>
+<span class="text-xs text-amber-500 font-medium">Needs Work</span>
+</div>
+</div>
+<span class="text-2xl font-bold text-amber-500">64%</span>
+</div>
+<div class="mt-4">
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 64%"></div>
+</div>
+<p class="text-xs text-slate-500 mt-3">Slide 2 contains 150+ words. Recommended limit is 60 words per slide.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-slate-200 dark:border-border-dark shadow-sm flex flex-col justify-between group hover:border-primary/50 transition-colors">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">timeline</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Narrative Flow</h4>
+<span class="text-xs text-primary font-medium">Moderate</span>
+</div>
+</div>
+<span class="text-2xl font-bold text-primary">75%</span>
+</div>
+<div class="mt-4">
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+<p class="text-xs text-slate-500 mt-3">A logic gap was detected between Slide 2 and 3. A bridge slide is suggested.</p>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+<div class="xl:col-span-8 flex flex-col gap-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden">
+<div class="p-5 border-b border-slate-200 dark:border-border-dark flex justify-between items-center bg-slate-50 dark:bg-surface-dark-highlight">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">psychology</span>
+<h3 class="font-bold text-slate-900 dark:text-white">Narrative Flow &amp; Structure</h3>
+</div>
+<button class="text-xs font-medium text-primary hover:text-blue-400">View Full Timeline</button>
+</div>
+<div class="p-6 relative">
+<div class="relative flex flex-col gap-0 border-l-2 border-slate-200 dark:border-slate-700 ml-4 pl-8 pb-4">
+<div class="relative pb-8">
+<div class="absolute -left-[41px] top-0 size-6 rounded-full bg-emerald-500 border-4 border-white dark:border-surface-dark z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">check</span>
+</div>
+<div class="bg-slate-50 dark:bg-surface-dark-highlight p-4 rounded-lg border border-slate-200 dark:border-border-dark flex gap-4 items-center">
+<img alt="Slide 1" class="w-24 h-16 object-cover rounded bg-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMRUYMaQ7CukbYmLbQHLCVNpKtysfHlwElrM6-ixNedSlLjzy2WZsROJ_rdYICZ2xfxJqQRdKBGDSKVmDOFnT9lYTHanufjIt3FT1HMASM12ffaH4tWJ346sPPYGQZ979bYfIytCVAtidi-B0AGqBrHfJTGvDEOlHlflJ436yUhB1KPLfajCgMNlkEKPLNyycLr4oS80A5sGNjP_HN3hM5q7bSzqKvQPpRSXFegtipL-jNsXi_DJ3byUjIiaLk-X1ATf-ZyGjBw10G"/>
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white text-sm">01. Q3 Financial Overview</h5>
+<p class="text-xs text-slate-500 mt-1">Strong opening. Sets the context effectively.</p>
+</div>
+</div>
+</div>
+<div class="relative pb-8">
+<div class="absolute -left-[41px] top-0 size-6 rounded-full bg-emerald-500 border-4 border-white dark:border-surface-dark z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">check</span>
+</div>
+<div class="bg-slate-50 dark:bg-surface-dark-highlight p-4 rounded-lg border border-slate-200 dark:border-border-dark flex gap-4 items-center">
+<img alt="Slide 2" class="w-24 h-16 object-cover rounded bg-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD__G9k4j04P_in85vFtmB3sI6BelNH-gBnDTiLf9Ub56A49mvgdMmoiXTzPOPBQwFQdEvMWdonGq9RouaJkhtjOwcb0cvvbLv7DsG4JpbrUMa0gf0MheBB-GFnnroNB83Jd8z1PSfofcgzRwtPcJaMJhr-2HiO33hYb_K4_8caKVgAQkvp3dmHBLom4g8KH2u-lIQlPz2aT2Eg3Qz9M0Y6R_U0uNulE04hN1E3M6mS0C-2nz_CEru1RVwEydL4x2ahf85g3J75Zhj"/>
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white text-sm">02. Growth Metrics 2024</h5>
+<p class="text-xs text-slate-500 mt-1">Detailed data presentation. Tone is analytical.</p>
+</div>
+</div>
+</div>
+<div class="relative pb-8">
+<div class="absolute -left-[41px] top-0 size-6 rounded-full bg-amber-500 border-4 border-white dark:border-surface-dark z-10 flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-white text-[14px]">warning</span>
+</div>
+<div class="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-lg border border-amber-500/30 flex flex-col md:flex-row gap-5 items-center justify-between">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wide">Narrative Gap Detected</span>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300">
+                                            The transition from <strong>hard metrics</strong> (Slide 2) to <strong>Team Introduction</strong> (Slide 3) feels abrupt. The audience needs to know <em>who</em> drove these results.
+                                        </p>
+</div>
+<button class="shrink-0 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-lg flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+                                        Add Bridge Slide
+                                    </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[41px] top-0 size-6 rounded-full bg-slate-300 dark:bg-slate-600 border-4 border-white dark:border-surface-dark z-10 flex items-center justify-center">
+<span class="text-[10px] font-bold text-white">3</span>
+</div>
+<div class="bg-slate-50 dark:bg-surface-dark-highlight p-4 rounded-lg border border-slate-200 dark:border-border-dark flex gap-4 items-center opacity-75">
+<img alt="Slide 3" class="w-24 h-16 object-cover rounded bg-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOU3py3A_oASVF25UCBtVpAlivxaurhese28KdOCPOPzben1EdCo5pLKGF6hyKOntlTzf50NIa1NcMlV_hoTuZoRLa8M1p9fWPptzO1-2lHll3GPRQ0TN6rNk95gyKVY6v6pz0PY2MTnMTXj9E46s4qPyt_gUUJ4440-bce0zLMHRTjmomxQSmJoe-lXVvEnUsjrN6FD4H_jWdr4a4fJok2KHU648TrR4gHNborgSOKcBf4x0MOFmk5U-bxD2mZguxhZbbFiPCGPiO"/>
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white text-sm">03. Meet the Team</h5>
+<p class="text-xs text-slate-500 mt-1">Human element introduced. Good visual balance.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm flex flex-col">
+<div class="p-4 border-b border-slate-200 dark:border-border-dark">
+<h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-500">brush</span>
+                                Design Issues
+                            </h3>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="flex gap-3">
+<div class="mt-1 min-w-8 flex justify-center">
+<span class="material-symbols-outlined text-amber-500">text_fields</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-800 dark:text-slate-200">Inconsistent Font Families</p>
+<p class="text-xs text-slate-500 mb-2">Slides 2 and 5 use 'Arial' instead of the theme's 'Inter'.</p>
+<button class="text-xs bg-slate-100 dark:bg-border-dark hover:bg-slate-200 dark:hover:bg-slate-600 px-2 py-1 rounded text-slate-700 dark:text-slate-300 transition-colors">Normalize to Inter</button>
+</div>
+</div>
+<div class="h-px bg-slate-100 dark:bg-border-dark w-full"></div>
+<div class="flex gap-3">
+<div class="mt-1 min-w-8 flex justify-center">
+<span class="material-symbols-outlined text-amber-500">contrast</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-800 dark:text-slate-200">Low Contrast Detected</p>
+<p class="text-xs text-slate-500 mb-2">Footer text on Slide 8 is hard to read against the dark background.</p>
+<button class="text-xs bg-slate-100 dark:bg-border-dark hover:bg-slate-200 dark:hover:bg-slate-600 px-2 py-1 rounded text-slate-700 dark:text-slate-300 transition-colors">Auto-Adjust Colors</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm flex flex-col">
+<div class="p-4 border-b border-slate-200 dark:border-border-dark">
+<h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500">article</span>
+                                Content &amp; Tone
+                            </h3>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="flex items-center justify-between bg-slate-50 dark:bg-surface-dark-highlight p-2 rounded">
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">Dominant Tone</span>
+<span class="text-xs font-bold text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">Professional / Formal</span>
+</div>
+<div class="flex gap-3">
+<div class="mt-1 min-w-8 flex justify-center">
+<span class="material-symbols-outlined text-red-500">cut</span>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-800 dark:text-slate-200">Slide 2 Overcrowded</p>
+<p class="text-xs text-slate-500 mb-2">150 words found. Consider splitting or summarizing.</p>
+<div class="flex gap-2">
+<button class="text-xs bg-slate-100 dark:bg-border-dark hover:bg-slate-200 dark:hover:bg-slate-600 px-2 py-1 rounded text-slate-700 dark:text-slate-300 transition-colors">Summarize with AI</button>
+<button class="text-xs bg-slate-100 dark:bg-border-dark hover:bg-slate-200 dark:hover:bg-slate-600 px-2 py-1 rounded text-slate-700 dark:text-slate-300 transition-colors">Split Slide</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="xl:col-span-4 flex flex-col gap-6 sticky top-24">
+<div class="bg-gradient-to-b from-indigo-900/40 to-surface-dark rounded-xl border border-indigo-500/30 shadow-lg flex flex-col overflow-hidden">
+<div class="p-5 border-b border-indigo-500/20 bg-indigo-900/20 backdrop-blur-sm">
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-bold text-white text-lg">Recommended Actions</h3>
+<span class="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">3 Urgent</span>
+</div>
+<p class="text-xs text-indigo-200">Fixing these will boost your score to 92/100.</p>
+</div>
+<div class="flex flex-col p-2">
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer border border-transparent hover:border-white/10">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-bold text-amber-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> High Priority
+                                </span>
+<button class="opacity-0 group-hover:opacity-100 text-xs bg-primary hover:bg-blue-600 text-white px-2 py-1 rounded transition-all">Fix</button>
+</div>
+<h4 class="text-sm font-medium text-slate-200">Fix font inconsistency</h4>
+<p class="text-xs text-slate-400 mt-1">Apply 'Inter' font family to all slides globally.</p>
+</div>
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer border border-transparent hover:border-white/10">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-bold text-amber-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> High Priority
+                                </span>
+<button class="opacity-0 group-hover:opacity-100 text-xs bg-primary hover:bg-blue-600 text-white px-2 py-1 rounded transition-all">Generate</button>
+</div>
+<h4 class="text-sm font-medium text-slate-200">Insert Bridge Slide</h4>
+<p class="text-xs text-slate-400 mt-1">Create transition slide between #2 and #3.</p>
+</div>
+<div class="p-3 hover:bg-white/5 rounded-lg transition-colors group cursor-pointer border border-transparent hover:border-white/10">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-bold text-emerald-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span> Suggestion
+                                </span>
+<button class="opacity-0 group-hover:opacity-100 text-xs bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded transition-all">Apply</button>
+</div>
+<h4 class="text-sm font-medium text-slate-200">Enhance Titles</h4>
+<p class="text-xs text-slate-400 mt-1">Make titles on Slide 4 &amp; 6 more action-oriented.</p>
+</div>
+</div>
+<div class="p-4 border-t border-white/10 mt-2">
+<button class="w-full py-2.5 bg-white text-slate-900 text-sm font-bold rounded-lg hover:bg-slate-200 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+                            Apply All Recommendations
+                        </button>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-border-dark shadow-sm p-4">
+<h3 class="font-bold text-slate-900 dark:text-white text-sm mb-3">Share Report</h3>
+<div class="flex gap-2">
+<button class="flex-1 py-2 border border-slate-200 dark:border-border-dark rounded-lg text-slate-600 dark:text-slate-300 text-xs font-medium hover:bg-slate-50 dark:hover:bg-surface-dark-highlight transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF
+                        </button>
+<button class="flex-1 py-2 border border-slate-200 dark:border-border-dark rounded-lg text-slate-600 dark:text-slate-300 text-xs font-medium hover:bg-slate-50 dark:hover:bg-surface-dark-highlight transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">link</span> Link
+                        </button>
+<button class="flex-1 py-2 border border-slate-200 dark:border-border-dark rounded-lg text-slate-600 dark:text-slate-300 text-xs font-medium hover:bg-slate-50 dark:hover:bg-surface-dark-highlight transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">mail</span> Email
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

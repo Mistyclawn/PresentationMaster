@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Presentation App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111418; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283039; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4754; 
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-display overflow-hidden h-screen w-screen flex flex-col">
+<header class="flex flex-col bg-[#111418] border-b border-[#283039] shrink-0">
+<div class="flex items-center justify-between px-4 py-2 border-b border-[#283039]">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined filled" style="font-size: 24px;">pie_chart</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-sm font-bold leading-tight">Q3 Financial Overview.pptx</h1>
+<span class="text-xs text-[#9dabb9]">Saved to Drive</span>
+</div>
+</div>
+<div class="hidden md:flex items-center bg-[#1e2329] rounded-md px-3 py-1.5 w-96 border border-[#283039] focus-within:border-primary">
+<span class="material-symbols-outlined text-[#9dabb9] !text-[18px]">search</span>
+<input class="bg-transparent border-none text-xs ml-2 w-full text-white placeholder-[#9dabb9] focus:ring-0 p-0" placeholder="Search commands" type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center -space-x-2">
+<div class="size-8 rounded-full border-2 border-[#111418] bg-center bg-cover" data-alt="User Avatar 1" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAgDdMD-xvOaXkZysnVKynkEVWBs4OsiWOwASkfWvG20XqmA3MUAraRSKuF8qLsyAg1XmulMuPSa6Q-ATrGIH1VPDsGN_5isp2Af2OpbIjlzd3Bu-LiRK9i5n6SJt3-bfSV61fIG7uJ6LXlzYTTamQC7GN09a6h3FS1cgMo7PguGb4hfCXjor31vbBkGps0ezTK3mCishaaAj9hWjvhfLdcrf0Hbe-4qmmZHLIW1fAcwrLObuyLVfTUOjc_0tWgS5v8GXEumTtyWxKQ");'></div>
+<div class="size-8 rounded-full border-2 border-[#111418] bg-center bg-cover bg-[#283039] flex items-center justify-center text-xs font-bold">+2</div>
+</div>
+<button class="flex items-center gap-2 h-8 px-4 bg-[#283039] hover:bg-[#323b46] text-white text-xs font-bold rounded-lg transition-colors">
+<span class="material-symbols-outlined !text-[18px]">share</span>
+<span>Share</span>
+</button>
+<button class="flex items-center gap-2 h-8 px-4 bg-primary hover:bg-blue-600 text-white text-xs font-bold rounded-lg transition-colors shadow-[0_0_15px_rgba(19,127,236,0.3)]">
+<span class="material-symbols-outlined filled !text-[18px]">play_arrow</span>
+<span>Present</span>
+</button>
+<div class="size-8 ml-2 rounded-full bg-center bg-cover" data-alt="Current User Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCfQ0wrNtbd7JTA9nOexXShjohl7gh5okcDi65rV7TIVv468vw-C_o4vGZ8Hgl9q56vi7uVcXpPmE_7Ug7kewNW4VFY4g4KhPLvrgr8ad1vQ7fXE96XVuX5qKK-alMY8BcTokgJsH2_MIWqN_bUvaO5WB5G9tfu3YLzIRM-9tf2rSsBR-YeBnltgr-STEsYAuzen8I9eDxmt3bsyqhbsZKF-RApwvplDO9McHY2Xev3Nq2YeTn2WTw-7YJcpZETzm96MENW0KiK53dp");'></div>
+</div>
+</div>
+<div class="flex items-center gap-1 px-4 pt-2 border-b border-[#283039] overflow-x-auto">
+<button class="px-3 py-2 text-xs font-medium text-white bg-[#283039] rounded-t-lg border-t border-x border-[#3b4754] relative -mb-[1px]">Home</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">File</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">Insert</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">Design</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">Transitions</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">Animations</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">Slide Show</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">Review</button>
+<button class="px-3 py-2 text-xs font-medium text-[#9dabb9] hover:text-white hover:bg-[#1e2329] rounded-t-lg transition-colors">View</button>
+</div>
+<div class="flex items-center justify-between px-4 py-2 bg-[#1e2329]">
+<div class="flex items-center gap-4">
+<div class="flex gap-1 border-r border-[#3b4754] pr-4">
+<button class="p-1.5 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined">undo</span></button>
+<button class="p-1.5 text-[#9dabb9] hover:text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined">redo</span></button>
+</div>
+<div class="flex gap-2 border-r border-[#3b4754] pr-4">
+<button class="flex items-center gap-1 px-2 py-1.5 text-white hover:bg-[#283039] rounded">
+<span class="material-symbols-outlined filled text-primary">add_box</span>
+<span class="text-xs font-medium">New Slide</span>
+<span class="material-symbols-outlined !text-[16px]">expand_more</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1.5 text-white hover:bg-[#283039] rounded">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-xs font-medium">Layout</span>
+</button>
+</div>
+<div class="flex gap-1 items-center border-r border-[#3b4754] pr-4">
+<select class="bg-[#111418] text-white text-xs border border-[#3b4754] rounded p-1 w-24 focus:border-primary focus:ring-0 outline-none">
+<option>Inter</option>
+<option>Arial</option>
+<option>Roboto</option>
+</select>
+<select class="bg-[#111418] text-white text-xs border border-[#3b4754] rounded p-1 w-14 focus:border-primary focus:ring-0 outline-none">
+<option>18</option>
+<option>24</option>
+<option>32</option>
+<option selected="">48</option>
+</select>
+<div class="w-[1px] h-6 bg-[#3b4754] mx-1"></div>
+<button class="p-1.5 text-white bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_bold</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_italic</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_underlined</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_color_text</span></button>
+</div>
+<div class="flex gap-1 items-center border-r border-[#3b4754] pr-4">
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_list_bulleted</span></button>
+<button class="p-1.5 text-white bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_align_left</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">format_align_center</span></button>
+</div>
+<div class="flex gap-1 items-center">
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">rectangle</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">circle</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">arrow_outward</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">text_fields</span></button>
+<button class="p-1.5 text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[20px]">image</span></button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 text-primary bg-primary/10 text-xs font-bold px-3 py-1.5 rounded-lg border border-primary/20 shadow-sm hover:bg-primary/20 transition-colors" onclick="window.location.href='fb51b9529ac04684b06ed55641a6ccf7'">
+<span class="material-symbols-outlined !text-[18px] filled">auto_awesome</span>
+<span>Presentation Master</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<div class="w-60 flex flex-col bg-[#111418] border-r border-[#283039] overflow-y-auto shrink-0 pb-10">
+<div class="flex items-center justify-between px-4 py-3 border-b border-[#283039]/50">
+<span class="text-xs font-semibold text-[#9dabb9]">SLIDES</span>
+<button class="text-[#9dabb9] hover:text-white"><span class="material-symbols-outlined !text-[18px]">sort</span></button>
+</div>
+<div class="flex flex-col gap-4 p-4">
+<div class="flex gap-2 group cursor-pointer">
+<span class="text-xs text-[#9dabb9] w-4 pt-1 font-medium">1</span>
+<div class="flex-1 aspect-video bg-white rounded border-2 border-transparent group-hover:border-[#3b4754] relative overflow-hidden">
+<div class="absolute inset-0 p-2 flex flex-col justify-center items-center">
+<div class="w-2/3 h-1 bg-gray-300 mb-1"></div>
+<div class="w-1/2 h-1 bg-gray-200"></div>
+</div>
+</div>
+</div>
+<div class="flex gap-2 group cursor-pointer">
+<span class="text-xs text-primary w-4 pt-1 font-medium">2</span>
+<div class="flex-1 aspect-video bg-white rounded border-2 border-primary relative overflow-hidden shadow-[0_0_0_2px_rgba(19,127,236,0.2)]">
+<div class="absolute inset-0 p-2">
+<div class="w-1/3 h-1 bg-gray-800 mb-2"></div>
+<div class="flex gap-2 h-full">
+<div class="w-1/2 h-12 bg-blue-100 rounded-sm"></div>
+<div class="w-1/2 h-full">
+<div class="w-full h-1 bg-gray-200 mb-1"></div>
+<div class="w-full h-1 bg-gray-200 mb-1"></div>
+<div class="w-3/4 h-1 bg-gray-200"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-2 group cursor-pointer">
+<span class="text-xs text-[#9dabb9] w-4 pt-1 font-medium">3</span>
+<div class="flex-1 aspect-video bg-white rounded border-2 border-transparent group-hover:border-[#3b4754] relative overflow-hidden">
+<div class="absolute inset-0 p-2 grid grid-cols-2 gap-2">
+<div class="bg-green-100 rounded-sm"></div>
+<div class="bg-purple-100 rounded-sm"></div>
+</div>
+</div>
+</div>
+<div class="flex gap-2 group cursor-pointer">
+<span class="text-xs text-[#9dabb9] w-4 pt-1 font-medium">4</span>
+<div class="flex-1 aspect-video bg-white rounded border-2 border-transparent group-hover:border-[#3b4754] relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="size-8 rounded-full bg-gray-100"></div>
+</div>
+</div>
+</div>
+<div class="flex gap-2 group cursor-pointer">
+<span class="text-xs text-[#9dabb9] w-4 pt-1 font-medium">5</span>
+<div class="flex-1 aspect-video bg-white rounded border-2 border-transparent group-hover:border-[#3b4754] relative overflow-hidden">
+<div class="absolute inset-0 p-2 flex flex-col">
+<div class="w-1/2 h-1 bg-gray-300 mb-1"></div>
+<div class="flex-1 bg-gray-50 rounded-sm border border-gray-100"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto p-4">
+<button class="w-full py-2 border border-dashed border-[#3b4754] rounded text-[#9dabb9] text-xs hover:text-white hover:border-white transition-colors">
+                    + Add Slide
+                </button>
+</div>
+</div>
+<div class="flex-1 bg-[#1e1e1e] relative overflow-auto flex flex-col">
+<div class="h-6 w-full bg-[#111418] border-b border-[#283039] flex items-end justify-center text-[10px] text-[#5b6b7a] relative shrink-0">
+<div class="absolute inset-x-0 bottom-0 h-1/2 flex justify-center gap-[50px] opacity-30">
+<div class="w-px h-full bg-[#5b6b7a]"></div><div class="w-px h-full bg-[#5b6b7a]"></div><div class="w-px h-full bg-[#5b6b7a]"></div>
+<div class="w-px h-full bg-[#5b6b7a]"></div><div class="w-px h-full bg-[#5b6b7a]"></div><div class="w-px h-full bg-[#5b6b7a]"></div>
+<div class="w-px h-full bg-[#5b6b7a]"></div><div class="w-px h-full bg-[#5b6b7a]"></div><div class="w-px h-full bg-[#5b6b7a]"></div>
+</div>
+</div>
+<div class="flex flex-1 relative overflow-auto p-12 items-center justify-center">
+<div class="absolute left-0 top-0 bottom-0 w-6 bg-[#111418] border-r border-[#283039] flex flex-col items-center justify-center text-[10px] text-[#5b6b7a] shrink-0 z-10">
+<div class="flex flex-col gap-[50px] opacity-30 w-full items-end pr-1">
+<div class="h-px w-2 bg-[#5b6b7a]"></div><div class="h-px w-2 bg-[#5b6b7a]"></div><div class="h-px w-2 bg-[#5b6b7a]"></div>
+<div class="h-px w-2 bg-[#5b6b7a]"></div><div class="h-px w-2 bg-[#5b6b7a]"></div><div class="h-px w-2 bg-[#5b6b7a]"></div>
+</div>
+</div>
+<div class="relative bg-white aspect-video w-full max-w-[1024px] shadow-2xl flex flex-col p-16 select-none group/slide">
+<div class="mb-8 border border-dashed border-transparent hover:border-gray-300 p-2 -m-2 rounded transition-colors cursor-text">
+<h1 class="text-5xl font-bold text-gray-900 tracking-tight">Q3 Financial Overview</h1>
+</div>
+<div class="flex gap-12 h-full">
+<div class="w-1/2 flex flex-col gap-4">
+<div class="relative border border-primary p-2 -m-2 bg-primary/5 cursor-move">
+<ul class="list-disc pl-5 text-xl text-gray-700 space-y-3 leading-relaxed">
+<li>Revenue growth up by <span class="font-bold text-green-600">15%</span> YoY</li>
+<li>Operating expenses reduced by 8%</li>
+<li>New market acquisition in APAC region</li>
+<li>Product margin increased to 32%</li>
+</ul>
+<div class="absolute -top-1.5 -left-1.5 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute -top-1.5 left-1/2 -translate-x-1/2 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute -top-1.5 -right-1.5 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute top-1/2 -left-1.5 -translate-y-1/2 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute top-1/2 -right-1.5 -translate-y-1/2 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute -bottom-1.5 -left-1.5 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute -bottom-1.5 -right-1.5 size-3 bg-white border border-primary rounded-full"></div>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+<div class="size-3 bg-white border border-primary rounded-full cursor-pointer"></div>
+<div class="h-5 w-px bg-primary"></div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100 flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-600">tips_and_updates</span>
+<p class="text-sm text-blue-800">Key Takeaway: Strong performance driven by enterprise sector.</p>
+</div>
+</div>
+<div class="w-1/2 flex items-center justify-center relative">
+<div class="w-full h-64 relative">
+<div class="absolute bottom-0 left-0 w-[15%] h-[40%] bg-blue-400 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-[20%] w-[15%] h-[55%] bg-blue-500 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-[40%] w-[15%] h-[45%] bg-blue-400 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-[60%] w-[15%] h-[75%] bg-blue-600 rounded-t-sm shadow-lg"></div>
+<div class="absolute bottom-0 left-[80%] w-[15%] h-[60%] bg-blue-500 rounded-t-sm"></div>
+<div class="absolute bottom-0 left-0 w-full h-px bg-gray-300"></div>
+<div class="absolute top-0 left-0 h-full w-px bg-gray-300"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-8 bg-[#111418] border-t border-[#283039] shrink-0 flex items-center justify-between px-4 text-xs font-medium">
+<div class="flex items-center gap-4 text-[#9dabb9]">
+<span class="hover:text-white cursor-pointer">Slide 2 of 5</span>
+<span class="hover:text-white cursor-pointer">English (US)</span>
+<button class="hover:text-white flex items-center gap-1">
+<span class="material-symbols-outlined !text-[14px]">notes</span> Notes
+            </button>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-[#9dabb9]">
+<button class="p-1 hover:text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[16px]">grid_view</span></button>
+<button class="p-1 text-white bg-[#283039] rounded"><span class="material-symbols-outlined filled !text-[16px]">crop_landscape</span></button>
+<button class="p-1 hover:text-white hover:bg-[#283039] rounded"><span class="material-symbols-outlined !text-[16px]">slideshow</span></button>
+</div>
+<div class="h-4 w-px bg-[#3b4754]"></div>
+<div class="flex items-center gap-2">
+<button class="text-[#9dabb9] hover:text-white"><span class="material-symbols-outlined !text-[16px]">remove</span></button>
+<div class="relative w-24 h-1 bg-[#3b4754] rounded-full group cursor-pointer">
+<div class="absolute left-0 top-0 h-full w-[60%] bg-[#9dabb9] group-hover:bg-primary rounded-full"></div>
+<div class="absolute left-[60%] top-1/2 -translate-y-1/2 size-3 bg-white rounded-full shadow cursor-grab hover:scale-110 transition-transform"></div>
+</div>
+<button class="text-[#9dabb9] hover:text-white"><span class="material-symbols-outlined !text-[16px]">add</span></button>
+<span class="w-8 text-right text-[#9dabb9]">84%</span>
+<button class="text-[#9dabb9] hover:text-white ml-1" title="Fit to window"><span class="material-symbols-outlined !text-[16px]">fit_screen</span></button>
+</div>
+</div>
+</div>
+</body></html>
