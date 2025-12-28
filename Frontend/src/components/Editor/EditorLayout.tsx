@@ -1,13 +1,17 @@
 import React from 'react';
 import './Editor.css';
-import Header from './Header'; // Placeholder import
-import Sidebar from './Sidebar'; // Placeholder import
-import Workspace from './Workspace'; // Placeholder import
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Workspace from './Workspace';
 
-const EditorLayout: React.FC = () => {
+interface EditorLayoutProps {
+    onNavigateToDashboard?: () => void;
+}
+
+const EditorLayout: React.FC<EditorLayoutProps> = ({ onNavigateToDashboard }) => {
     return (
         <div className="editor-layout">
-            <Header />
+            <Header onNavigateToDashboard={onNavigateToDashboard} />
             <div className="editor-body">
                 <Sidebar />
                 <Workspace />

@@ -1,7 +1,11 @@
 import React from 'react';
 import './Header.css';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+    onNavigateToDashboard?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onNavigateToDashboard }) => {
     return (
         <header className="editor-header">
             {/* Top Bar */}
@@ -110,7 +114,7 @@ const Header: React.FC = () => {
                 </div>
 
                 {/* Presentation Master Button */}
-                <button className="presentation-master-btn" onClick={() => console.log('Navigate to Presentation Master')}>
+                <button className="presentation-master-btn" onClick={onNavigateToDashboard}>
                     <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>auto_awesome</span>
                     <span>Presentation Master</span>
                 </button>
