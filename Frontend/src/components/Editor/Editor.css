@@ -45,3 +45,121 @@
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
 }
+
+/* Text/Element Selection Handles */
+.handle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border: 1px solid var(--color-primary);
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.handle.top-left {
+    top: -5px;
+    left: -5px;
+    cursor: nwse-resize;
+}
+
+.handle.top-mid {
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: ns-resize;
+}
+
+.handle.top-right {
+    top: -5px;
+    right: -5px;
+    cursor: nesw-resize;
+}
+
+.handle.mid-left {
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+    cursor: ew-resize;
+}
+
+.handle.mid-right {
+    top: 50%;
+    right: -5px;
+    transform: translateY(-50%);
+    cursor: ew-resize;
+}
+
+.handle.bot-left {
+    bottom: -5px;
+    left: -5px;
+    cursor: nesw-resize;
+}
+
+.handle.bot-mid {
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: ns-resize;
+}
+
+.handle.bot-right {
+    bottom: -5px;
+    right: -5px;
+    cursor: nwse-resize;
+}
+
+.handle-rotate {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border: 1px solid var(--color-primary);
+    border-radius: 50%;
+    /* Circle */
+    cursor: grab;
+}
+
+.handle-rotate::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 16px;
+    background-color: var(--color-primary);
+    z-index: -1;
+}
+
+/* Utilities reused across components */
+.hover-white:hover {
+    color: white !important;
+}
+
+.white {
+    color: white !important;
+}
+
+.btn-icon-small {
+    padding: 4px;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.btn-icon-small:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.btn-icon-small.active {
+    background-color: var(--color-border);
+}
