@@ -1,0 +1,81 @@
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(40, 48, 57, 0.5);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.slide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.slide-thumbnail-item {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.slide-number {
+    width: 16px;
+    padding-top: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-align: right;
+}
+
+.slide-wrapper {
+    flex: 1;
+    aspect-ratio: 16 / 9;
+    background-color: white;
+    /* Slides are usually white */
+    border-radius: 4px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.slide-thumbnail-item:hover .slide-wrapper {
+    border-color: var(--color-border-hover);
+}
+
+.slide-thumbnail-item.active .slide-number {
+    color: var(--color-primary);
+}
+
+.slide-thumbnail-item.active .slide-wrapper {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(19, 127, 236, 0.2);
+}
+
+.add-slide-area {
+    padding: 16px;
+    margin-top: auto;
+}
+
+.btn-add-slide {
+    width: 100%;
+    padding: 8px;
+    border: 1px dashed var(--color-border-hover);
+    border-radius: 4px;
+    background: none;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-slide:hover {
+    color: white;
+    border-color: white;
+}
