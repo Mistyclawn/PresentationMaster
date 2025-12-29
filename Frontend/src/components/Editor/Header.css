@@ -13,7 +13,6 @@
     padding: 8px 16px;
     border-bottom: 1px solid var(--color-border);
     height: 56px;
-    /* Explicit height */
     box-sizing: border-box;
 }
 
@@ -26,9 +25,8 @@
 .app-icon {
     width: 32px;
     height: 32px;
-    background-color: rgba(19, 127, 236, 0.2);
-    border-radius: 8px;
-    /* rounded-lg */
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,16 +35,13 @@
 
 .header-title h1 {
     font-size: 14px;
-    /* text-sm */
     font-weight: 700;
-    /* font-bold */
     margin: 0;
     line-height: 1.25;
 }
 
 .header-title span {
     font-size: 12px;
-    /* text-xs */
     color: var(--color-text-muted);
 }
 
@@ -61,17 +56,11 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    /* gap-2 */
     height: 32px;
-    /* h-8 */
     padding: 0 16px;
-    /* px-4 */
-    border-radius: 8px;
-    /* rounded-lg */
+    border-radius: var(--radius-md);
     font-size: 12px;
-    /* text-xs */
     font-weight: 700;
-    /* font-bold */
     cursor: pointer;
     border: none;
     transition: background-color 0.15s;
@@ -90,14 +79,12 @@
 
 .btn-primary {
     background-color: var(--color-primary);
-    /* bg-primary */
     color: white;
     box-shadow: 0 0 15px rgba(19, 127, 236, 0.3);
 }
 
 .btn-primary:hover {
-    background-color: #2563eb;
-    /* approximate hover:bg-blue-600 */
+    background-color: var(--color-primary-hover);
 }
 
 /* Menu Tabs */
@@ -105,31 +92,24 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    /* gap-1 */
     padding: 8px 16px 0;
-    /* px-4 pt-2 */
     overflow-x: auto;
     border-bottom: 1px solid var(--color-border);
 }
 
 .menu-item {
     padding: 8px 12px;
-    /* px-3 py-2 */
     font-size: 12px;
-    /* text-xs */
     font-weight: 500;
-    /* font-medium */
     color: var(--color-text-muted);
     background: none;
     border: 1px solid transparent;
     border-bottom: none;
-    border-top-left-radius: 8px;
-    /* rounded-t-lg */
-    border-top-right-radius: 8px;
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
     cursor: pointer;
     transition: all 0.2s;
     margin-bottom: -1px;
-    /* Relative positioning fix */
 }
 
 .menu-item.active {
@@ -152,7 +132,6 @@
 /* Toolbar */
 .header-toolbar {
     padding: 8px 16px;
-    /* px-4 py-2 */
     background-color: #1e2329;
     /* bg-[#1e2329] */
     display: flex;
@@ -165,28 +144,21 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    /* gap-4 */
 }
 
 .toolbar-group {
     display: flex;
     gap: 4px;
-    /* gap-1 / gap-2 depending on group */
     align-items: center;
 }
 
-/* Dividing lines */
 .toolbar-divider {
     width: 1px;
     height: 24px;
     background-color: #3b4754;
     /* border-[#3b4754] */
     margin-right: 16px;
-    /* pr-4 equivalent spacing on container */
 }
-
-/* Note: The HTML used border-r on divs. Here using a divider div approach for Flexbox simplicity, 
-   or we can style the groups to have border-right */
 
 .toolbar-group-bordered {
     display: flex;
@@ -201,13 +173,10 @@
     /* bg-[#111418] */
     color: white;
     font-size: 12px;
-    /* text-xs */
     border: 1px solid #3b4754;
     /* border-[#3b4754] */
     border-radius: 4px;
-    /* rounded */
     padding: 4px;
-    /* p-1 */
     outline: none;
 }
 
@@ -215,16 +184,13 @@
     border-color: var(--color-primary);
 }
 
-/* Toolbar Icon Buttons: p-1.5 rounded */
+/* Toolbar Icon Buttons */
 .btn-icon {
     padding: 6px;
-    /* p-1.5 approx 6px */
     color: var(--color-text-muted);
-    /* text-[#9dabb9] */
     background: none;
     border: none;
     border-radius: 4px;
-    /* rounded */
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -244,51 +210,38 @@
     /* bg-[#283039] */
 }
 
-/* New Slide / Layout Buttons: px-2 py-1.5 rounded */
+/* New Slide / Layout Buttons */
 .btn-toolbar-text {
     display: flex;
     align-items: center;
     gap: 4px;
-    /* gap-1 */
     padding: 6px 8px;
-    /* px-2 py-1.5 */
     color: white;
     background: none;
     border: none;
     border-radius: 4px;
-    /* rounded */
     cursor: pointer;
     font-size: 12px;
-    /* text-xs */
     font-weight: 500;
-    /* font-medium */
 }
 
 .btn-toolbar-text:hover {
-    background-color: #283039;
-    /* hover:bg-[#283039] */
+    background-color: var(--color-bg-hover-dark);
 }
 
 /* Presentation Master Button */
-/* px-3 py-1.5 rounded-lg border border-primary/20 shadow-sm hover:bg-primary/20 */
 .presentation-master-btn {
     display: flex;
     align-items: center;
     gap: 4px;
-    /* gap-1 or gap-2 */
     color: var(--color-primary);
-    background-color: rgba(19, 127, 236, 0.1);
-    /* bg-primary/10 */
+    background-color: var(--color-primary-light);
     font-size: 12px;
-    /* text-xs */
     font-weight: 700;
-    /* font-bold */
     padding: 6px 12px;
-    /* px-3 py-1.5 */
-    border-radius: 8px;
-    /* rounded-lg */
+    border-radius: var(--radius-md);
     border: 1px solid rgba(19, 127, 236, 0.2);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -299,7 +252,4 @@
 
 .material-symbols-outlined {
     font-size: 20px;
-    /* Default for toolbars per CSS */
 }
-
-/* Specific overrides can be inline or utility classes if needed */
