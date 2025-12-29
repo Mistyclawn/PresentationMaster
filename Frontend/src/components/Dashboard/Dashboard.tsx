@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Dashboard.css';
+import SlideDesignModal from './SlideDesignModal';
 
 interface DashboardProps {
     onBack: () => void;
@@ -9,6 +10,15 @@ type ViewMode = 'normal' | 'compact';
 
 const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
     const [viewMode, setViewMode] = useState<ViewMode>('normal');
+    const [activeDesignSlide, setActiveDesignSlide] = useState<any>(null);
+
+    const handleOpenDesign = (slide: any) => {
+        setActiveDesignSlide(slide);
+    };
+
+    const handleCloseDesign = () => {
+        setActiveDesignSlide(null);
+    };
 
     const slides = [
         { id: 1, title: "Q3 Financial Overview", description: "Title slide with high-level summary of Q3 financial performance and key achievements.", script: "Welcome everyone. Today we will discuss...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuAMRUYMaQ7CukbYmLbQHLCVNpKtysfHlwElrM6-ixNedSlLjzy2WZsROJ_rdYICZ2xfxJqQRdKBGDSKVmDOFnT9lYTHanufjIt3FT1HMASM12ffaH4tWJ346sPPYGQZ979bYfIytCVAtidi-B0AGqBrHfJTGvDEOlHlflJ436yUhB1KPLfajCgMNlkEKPLNyycLr4oS80A5sGNjP_HN3hM5q7bSzqKvQPpRSXFegtipL-jNsXi_DJ3byUjIiaLk-X1ATf-ZyGjBw10G" },
@@ -52,7 +62,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
 
             {/* Side Actions (Time, Delete, Design) */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end', marginLeft: 12, borderLeft: '1px solid #3b4754', paddingLeft: 12, minWidth: 120 }}>
-                <button className="btn-design">
+                <button className="btn-design" onClick={() => handleOpenDesign(slide)}>
                     <span className="material-symbols-outlined" style={{ fontSize: 16 }}>palette</span> Design
                 </button>
                 <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
@@ -81,7 +91,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
                 <h4 style={{ fontSize: 14, fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0 }}>{slide.title}</h4>
             </div>
             <div className="compact-actions" style={{ display: 'flex', gap: 8 }}>
-                <button className="compact-action-btn-primary" title="Open Slide Designer">
+                <button className="compact-action-btn-primary" title="Open Slide Designer" onClick={() => handleOpenDesign(slide)}>
                     <span className="material-symbols-outlined" style={{ fontSize: 18 }}>edit_square</span>
                 </button>
                 <button className="compact-action-btn delete" title="Delete Slide">
@@ -276,6 +286,12 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
                     </div>
                 </div>
             </main>
+
+            <SlideDesignModal
+                isOpen={!!activeDesignSlide}
+                onClose={handleCloseDesign}
+                slide={activeDesignSlide}
+            />
         </div>
     );
 };
