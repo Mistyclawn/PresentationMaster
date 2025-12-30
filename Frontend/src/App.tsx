@@ -6,12 +6,27 @@ import './App.css';
 
 function App() {
     const [view, setView] = useState<'initial' | 'editor' | 'dashboard'>('initial');
+    const [activeProject, setActiveProject] = useState<boolean>(false);
+
+    const handleOpenProject = () => {
+        setActiveProject(true);
+        setView('editor');
+    };
+
+    const handleCreateProject = () => {
+        // In future, this would take title/script
+        setActiveProject(true);
+        setView('editor');
+    };
 
     if (view === 'initial') {
         return (
             <InitialScreen
+                hasActiveProject={activeProject}
                 onNavigateToEditor={() => setView('editor')}
                 onNavigateToDashboard={() => setView('dashboard')}
+                onOpenProject={handleOpenProject}
+                onCreateProject={handleCreateProject}
             />
         );
     }

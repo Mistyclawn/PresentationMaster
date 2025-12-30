@@ -57,6 +57,7 @@
 .header-actions {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 /* Reusing button styles concept */
@@ -143,7 +144,8 @@
     margin: 0 auto;
     width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    /* Changed from center to flex-start for scrolling content */
 }
 
 @media (min-width: 1024px) {
@@ -154,113 +156,17 @@
 
 .initial-content-wrapper {
     width: 100%;
-    max-width: 896px; /* max-w-4xl */
+    max-width: 1024px;
+    /* Widened slightly */
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 48px;
+    padding-bottom: 48px;
 }
 
-/* Empty State Hero */
-.empty-state-hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
+/* Empty State Hero - REMOVED */
 
-.hero-box {
-    position: relative;
-    width: 100%;
-    max-width: 672px; /* max-w-2xl */
-    aspect-ratio: 16/9;
-    margin-bottom: 32px;
-    background-color: var(--color-bg-hover);
-    border-radius: var(--radius-2xl); /* 1rem */
-    border: 2px dashed var(--color-border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.dark .hero-box {
-    background-color: rgba(26, 31, 38, 0.5);
-    border-color: var(--color-border-dark);
-}
-
-.hero-bg-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.03;
-    background-image: radial-gradient(#64748b 1px, transparent 1px);
-    background-size: 24px 24px;
-    pointer-events: none;
-}
-
-.dark .hero-bg-pattern {
-    opacity: 0.05;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px;
-    transition: transform 0.5s;
-}
-
-.hero-box:hover .hero-content {
-    transform: scale(1.05);
-}
-
-.hero-icon-box {
-    width: 96px;
-    height: 96px;
-    border-radius: var(--radius-2xl);
-    background-color: white;
-    box-shadow: 0 10px 15px -3px rgba(226, 232, 240, 0.5); /* shadow-slate-200/50 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    border: 1px solid var(--color-bg-hover);
-}
-
-.dark .hero-icon-box {
-    background-color: var(--color-bg-surface-dark);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    border-color: var(--color-border-dark);
-}
-
-.hero-icon {
-    font-size: 48px;
-    color: var(--color-primary);
-    opacity: 0.8;
-}
-
-.hero-title {
-    font-size: 30px;
-    font-weight: 700;
-    margin: 0 0 12px 0;
-    color: var(--color-text-main);
-}
-
-@media (min-width: 768px) {
-    .hero-title {
-        font-size: 36px;
-    }
-}
-
-.hero-subtitle {
-    font-size: 18px;
-    color: var(--color-text-muted);
-    margin: 0;
-}
-
-/* Grid Layout */
+/* Grid Actions */
 .initial-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -285,6 +191,7 @@
     .col-left {
         grid-column: span 12;
     }
+
     .col-right {
         grid-column: span 12;
     }
@@ -294,6 +201,7 @@
     .col-left {
         grid-column: span 7;
     }
+
     .col-right {
         grid-column: span 5;
     }
@@ -302,7 +210,8 @@
 /* Create Slide Card */
 .card-create {
     background-color: var(--color-bg-surface);
-    border-radius: var(--radius-xl); /* 0.75rem */
+    border-radius: var(--radius-xl);
+    /* 0.75rem */
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
@@ -328,7 +237,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background-color: rgba(248, 250, 252, 0.5); /* slate-50/50 */
+    background-color: rgba(248, 250, 252, 0.5);
+    /* slate-50/50 */
 }
 
 .dark .card-header {
@@ -382,7 +292,8 @@
     letter-spacing: 0.05em;
 }
 
-.form-input, .form-textarea {
+.form-input,
+.form-textarea {
     width: 100%;
     background-color: var(--color-bg-hover);
     border: 1px solid var(--color-border);
@@ -396,12 +307,14 @@
     font-family: inherit;
 }
 
-.dark .form-input, .dark .form-textarea {
+.dark .form-input,
+.dark .form-textarea {
     background-color: #111418;
     border-color: var(--color-border-dark);
 }
 
-.form-input:focus, .form-textarea:focus {
+.form-input:focus,
+.form-textarea:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 2px rgba(19, 127, 236, 0.5);
 }
@@ -462,8 +375,8 @@
 
 /* Gradient overrides for 'Generate' card if needed, mimicking html */
 .action-card.card-generate {
-    background: linear-gradient(to bottom right, #e0e7ff 0%, #ffffff 100%); /* indigo-50/50 to white */
-    border-color: #e0e7ff; /* indigo-100 */
+    background: linear-gradient(to bottom right, #f8fafc 0%, #ffffff 100%);
+    border-color: var(--color-border);
 }
 
 .dark .action-card.card-generate {
@@ -472,12 +385,14 @@
 }
 
 .card-generate:hover {
-    border-color: #6366f1; /* indigo-500 */
+    border-color: #6366f1;
+    /* indigo-500 */
     box-shadow: 0 0 0 1px #6366f1;
 }
 
 .card-import:hover {
-    border-color: #10b981; /* emerald-500 */
+    border-color: #10b981;
+    /* emerald-500 */
     box-shadow: 0 0 0 1px #10b981;
 }
 
@@ -512,8 +427,10 @@
     width: 40px;
     height: 40px;
     border-radius: var(--radius-md);
-    background-color: #e0e7ff; /* indigo-100 */
-    color: #4f46e5; /* indigo-600 */
+    background-color: #e0e7ff;
+    /* indigo-100 */
+    color: #4f46e5;
+    /* indigo-600 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -527,13 +444,16 @@
 
 /* Import specific colors */
 .card-import .action-icon-box {
-    background-color: #d1fae5; /* emerald-100 */
-    color: #059669; /* emerald-600 */
+    background-color: #d1fae5;
+    /* emerald-100 */
+    color: #059669;
+    /* emerald-600 */
 }
 
 .dark .card-import .action-icon-box {
     background-color: rgba(6, 78, 59, 0.4);
-    color: #34d399; /* emerald-400 */
+    color: #34d399;
+    /* emerald-400 */
 }
 
 .action-title {
@@ -544,14 +464,10 @@
     transition: color 0.15s;
 }
 
-.card-generate .action-title:hover { /* Handled by parent hover usually */
-} 
-.action-card:hover .action-title {
-   /* We could color logic here but text-main is fine or specific color */
-}
 .card-generate:hover .action-title {
     color: #4f46e5;
 }
+
 .dark .card-generate:hover .action-title {
     color: #818cf8;
 }
@@ -559,6 +475,7 @@
 .card-import:hover .action-title {
     color: #059669;
 }
+
 .dark .card-import:hover .action-title {
     color: #34d399;
 }
@@ -566,6 +483,97 @@
 
 .action-desc {
     font-size: 14px;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* Recent Projects Section */
+.recent-projects-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin: 0;
+}
+
+.recent-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .recent-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .recent-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.recent-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+    gap: 12px;
+}
+
+.dark .recent-card {
+    background-color: var(--color-bg-surface-dark);
+    border-color: var(--color-border-dark);
+}
+
+.recent-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.recent-thumb {
+    width: 80px;
+    height: 45px;
+    border-radius: var(--radius-sm);
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-bg-hover);
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+}
+
+.dark .recent-thumb {
+    border-color: var(--color-border-dark);
+}
+
+.recent-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.recent-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-main);
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recent-date {
+    font-size: 12px;
     color: var(--color-text-muted);
     margin: 0;
 }
