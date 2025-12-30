@@ -1,17 +1,33 @@
 :root {
-    /* Colors extracted from Editor.html */
+    /* Colors - Brand */
     --color-primary: #137fec;
     --color-primary-hover: #116eca;
+    --color-primary-light: rgba(19, 127, 236, 0.1);
+
+    /* Colors - Backgrounds */
+    --color-bg-page: #f6f7f8;
     --color-bg-dark: #101922;
+    /* App body bg */
     --color-bg-panel: #111418;
-    /* Sidebar, Header bg */
-    --color-bg-hover: #1e2329;
-    --color-border: #283039;
-    --color-border-hover: #3b4754;
-    --color-text-main: #ffffff;
-    --color-text-muted: #9dabb9;
-    --color-text-dark: #111418;
-    /* For light slide content */
+    /* Dark panel bg */
+    --color-bg-surface: #ffffff;
+    /* Light card bg */
+    --color-bg-surface-dark: #1C2128;
+    /* Dark card bg */
+    --color-bg-hover: #f1f5f9;
+    --color-bg-hover-dark: #1e2329;
+
+    /* Colors - Borders */
+    --color-border: #e2e8f0;
+    --color-border-dark: #2d3748;
+    --color-border-hover: #1e2329;
+    /* Dark hover border */
+
+    /* Colors - Text */
+    --color-text-main: #0f172a;
+    --color-text-inverse: #ffffff;
+    --color-text-muted: #64748b;
+    --color-text-muted-dark: #9dabb9;
 
     /* Spacing */
     --spacing-xs: 4px;
@@ -20,37 +36,65 @@
     --spacing-lg: 24px;
     --spacing-xl: 32px;
 
+    /* Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
     /* Fonts */
     --font-family-display: 'Inter', sans-serif;
 }
 
+/* Dark Mode Overrides (applied via .dark class usually, or used explicitly via vars) */
+.dark {
+    --color-bg-page: #101922;
+    --color-bg-surface: #1C2128;
+    --color-border: #2d3748;
+    --color-text-main: #ffffff;
+    --color-text-muted: #9dabb9;
+    --color-bg-hover: #1e2329;
+}
+
 body {
     font-family: var(--font-family-display);
-    background-color: var(--color-bg-dark);
+    background-color: var(--color-bg-page);
     color: var(--color-text-main);
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* App-like feel */
     height: 100vh;
     width: 100vw;
 }
 
-/* Scrollbar styling */
+/* Global Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--color-bg-panel);
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-border);
+    background: #cbd5e1;
     border-radius: 4px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-border-hover);
+    background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
 }

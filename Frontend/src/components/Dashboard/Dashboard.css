@@ -1,10 +1,563 @@
 /* Dashboard Layout */
 .dashboard-container {
     min-height: 100vh;
-    background-color: #f6f7f8;
+    background-color: var(--color-bg-page);
     display: flex;
     flex-direction: column;
+    color: var(--color-text-main);
+}
+
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-surface);
+    padding: 12px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 64px;
+    box-sizing: border-box;
+}
+
+.dark .dashboard-header {
+    border-color: var(--color-border-dark);
+    background-color: var(--color-bg-surface-dark);
+}
+
+.dashboard-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    color: var(--color-primary);
+}
+
+/* Header Buttons - Refactored to use .btn classes in JSX mostly, mimicking here for compatibility if classes not changed in TSX */
+.header-btn {
+    /* Compose common btn styles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.15s;
+    white-space: nowrap;
+}
+
+.header-btn-mode {
+    background-color: var(--color-text-main);
+    color: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.header-btn-mode:hover {
+    opacity: 0.9;
+}
+
+.dark .header-btn-mode {
+    background-color: var(--color-text-inverse);
+    color: var(--color-text-main);
+}
+
+.dark .header-btn-mode:hover {
+    background-color: var(--color-border);
+}
+
+.header-btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.header-btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.header-icon-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: none;
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-muted);
+    transition: background-color 0.15s;
+}
+
+.header-icon-btn:hover {
+    background-color: var(--color-border);
+}
+
+.dark .header-icon-btn {
+    background-color: var(--color-border-dark);
+    color: white;
+}
+
+
+/* Main Layout */
+.dashboard-main {
+    flex: 1;
+    padding: 32px;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+.hero-card {
+    grid-column: span 1;
+    position: relative;
+    min-height: 180px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 1024px) {
+    .hero-card {
+        grid-column: span 4;
+    }
+}
+
+.stats-cards {
+    grid-column: span 1;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+    height: 100%;
+}
+
+@media (min-width: 640px) {
+    .stats-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .stats-cards {
+        grid-column: span 8;
+    }
+}
+
+.stat-card {
+    /* Composing .card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.dark .stat-card {
+    background-color: var(--color-bg-surface-dark);
+    border-color: var(--color-border-dark);
+}
+
+.stat-card.alert {
+    background-color: #fffbeb;
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.dark .stat-card.alert {
+    background-color: #2a2218;
+}
+
+.stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+@media (min-width: 1280px) {
+    .content-grid {
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+.narrative-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (min-width: 1280px) {
+    .narrative-col {
+        grid-column: span 8;
+    }
+}
+
+.sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 96px;
+}
+
+@media (min-width: 1280px) {
+    .sidebar-col {
+        grid-column: span 4;
+    }
+}
+
+
+/* Narrative Controls */
+.narrative-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.narrative-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.view-toggles {
+    display: flex;
+    gap: 8px;
+}
+
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-main);
+}
+
+.dark .toggle-btn {
+    background-color: var(--color-bg-surface-dark);
+    border-color: var(--color-border-dark);
+    color: white;
+}
+
+.dark .toggle-btn:hover {
+    background-color: var(--color-border-hover);
+}
+
+.toggle-btn.active {
+    background-color: var(--color-text-main);
+    color: var(--color-bg-surface);
+    border-color: transparent;
+    font-weight: 700;
+}
+
+.dark .toggle-btn.active {
+    background-color: white;
     color: #0f172a;
+}
+
+.dark .toggle-btn.active:hover {
+    background-color: white;
+}
+
+/* Slide Items */
+.slide-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--color-bg-surface);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s;
+}
+
+@media (min-width: 768px) {
+    .slide-item {
+        flex-direction: row;
+    }
+}
+
+.dark .slide-item {
+    background-color: var(--color-bg-surface-dark);
+    border-color: var(--color-border-dark);
+}
+
+.slide-item:hover {
+    border-color: rgba(19, 127, 236, 0.5);
+}
+
+.slide-handle {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 32px;
+    color: var(--color-text-muted);
+    cursor: grab;
+}
+
+@media (min-width: 768px) {
+    .slide-handle {
+        display: flex;
+        align-self: center;
+    }
+}
+
+.slide-handle span:last-child {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.slide-inputs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Replaces .input-control with no extra styles if we use common.css input-control */
+.input-control {
+    /* Extended props if any, mostly handled by common.css */
+    width: 100%;
+}
+
+.btn-design {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 0;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid rgba(19, 127, 236, 0.2);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-design:hover {
+    background-color: rgba(19, 127, 236, 0.1);
+    border-color: rgba(19, 127, 236, 0.4);
+}
+
+.btn-delete {
+    padding: 6px;
+    color: var(--color-text-muted);
+    border-radius: 4px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+}
+
+.btn-delete:hover {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Compact Item */
+.compact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--color-bg-surface);
+    padding: 8px 16px 8px 8px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s;
+}
+
+.dark .compact-item {
+    background-color: var(--color-bg-surface-dark);
+    border-color: var(--color-border-dark);
+}
+
+.compact-item:hover {
+    border-color: rgba(19, 127, 236, 0.5);
+}
+
+.compact-action-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+    transition: all 0.15s;
+}
+
+.compact-action-btn-primary:hover {
+    background-color: rgba(19, 127, 236, 0.1);
+}
+
+.compact-action-btn.delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+}
+
+.compact-action-btn.delete:hover {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Sidebar Cards */
+.sidebar-card {
+    background-color: var(--color-bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.dark .sidebar-card {
+    background-color: var(--color-bg-surface-dark);
+    border-color: var(--color-border-dark);
+}
+
+/* AI Narrative Card */
+.ai-card {
+    background: linear-gradient(to bottom right, #312e81, #1e2329);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: white;
+    position: relative;
+}
+
+.ai-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background-color: rgba(99, 102, 241, 0.2);
+    filter: blur(64px);
+    pointer-events: none;
+}
+
+.btn-unify {
+    width: 100%;
+    padding: 10px 0;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    border: none;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.15s;
+}
+
+.btn-unify:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-generate {
+    width: 100%;
+    margin-top: 12px;
+    padding: 6px 12px;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.btn-generate:hover {
+    background-color: #4338ca;
+}
+
+.btn-analysis {
+    width: 100%;
+    padding: 8px 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.15s;
+}
+
+.btn-analysis:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .dashboard-container.dark {
@@ -588,8 +1141,4 @@
     justify-content: center;
     gap: 8px;
     transition: background-color 0.15s;
-}
-
-.btn-analysis:hover {
-    background-color: rgba(255, 255, 255, 0.2);
 }

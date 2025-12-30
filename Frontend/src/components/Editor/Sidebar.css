@@ -37,7 +37,6 @@
     flex: 1;
     aspect-ratio: 16 / 9;
     background-color: white;
-    /* Slides are usually white */
     border-radius: 4px;
     border: 2px solid transparent;
     position: relative;
@@ -55,7 +54,7 @@
 
 .slide-thumbnail-item.active .slide-wrapper {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(19, 127, 236, 0.2);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
 }
 
 .add-slide-area {
