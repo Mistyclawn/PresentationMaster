@@ -28,7 +28,7 @@
     background-color: #1e1e1e;
     /* Workspace bg from design */
     position: relative;
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -36,6 +36,7 @@
 .workspace-canvas-area {
     flex: 1;
     position: relative;
+    overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;

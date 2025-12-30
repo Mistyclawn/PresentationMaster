@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px 16px;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #3b4754;
     height: 56px;
     box-sizing: border-box;
 }
@@ -38,6 +38,8 @@
     font-weight: 700;
     margin: 0;
     line-height: 1.25;
+    color: white;
+    /* Fix visibility on dark background */
 }
 
 .header-title span {
@@ -93,8 +95,8 @@
     align-items: center;
     gap: 4px;
     padding: 8px 16px 0;
-    overflow-x: auto;
-    border-bottom: 1px solid var(--color-border);
+    overflow-x: hidden;
+    border-bottom: 1px solid #3b4754;
 }
 
 .menu-item {

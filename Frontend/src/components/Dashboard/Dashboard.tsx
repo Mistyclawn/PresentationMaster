@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Dashboard.css';
 import SlideDesignModal from './SlideDesignModal';
 
@@ -12,6 +12,49 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
     const [viewMode, setViewMode] = useState<ViewMode>('normal');
     const [activeDesignSlide, setActiveDesignSlide] = useState<any>(null);
 
+    // Initial Data
+    const initialSlides = [
+        { id: 1, title: "Q3 Financial Overview", description: "Title slide with high-level summary of Q3 financial performance and key achievements.", script: "Welcome everyone. Today we will discuss...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuAMRUYMaQ7CukbYmLbQHLCVNpKtysfHlwElrM6-ixNedSlLjzy2WZsROJ_rdYICZ2xfxJqQRdKBGDSKVmDOFnT9lYTHanufjIt3FT1HMASM12ffaH4tWJ346sPPYGQZ979bYfIytCVAtidi-B0AGqBrHfJTGvDEOlHlflJ436yUhB1KPLfajCgMNlkEKPLNyycLr4oS80A5sGNjP_HN3hM5q7bSzqKvQPpRSXFegtipL-jNsXi_DJ3byUjIiaLk-X1ATf-ZyGjBw10G" },
+        { id: 2, title: "Growth Metrics 2024", description: "Detailed breakdown of user acquisition costs and retention rates compared to last year.", script: "As you can see on the chart, our user...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuCD__G9k4j04P_in85vFtmB3sI6BelNH-gBnDTiLf9Ub56A49mvgdMmoiXTzPOPBQwFQdEvMWdonGq9RouaJkhtjOwcb0cvvbLv7DsG4JpbrUMa0gf0MheBB-GFnnroNB83Jd8z1PSfofcgzRwtPcJaMJhr-2HiO33hYb_K4_8caKVgAQkvp3dmHBLom4g8KH2u-lIQlPz2aT2Eg3Qz9M0Y6R_U0uNulE04hN1E3M6mS0C-2nz_CEru1RVwEydL4x2ahf85g3J75Zhj", badge: "Font", badgeColor: "#f59e0b" },
+        { id: 3, title: "Meet the Team", description: "Introduction of the core project team members and their specific roles.", script: "I'd like to introduce the core members...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuDOU3py3A_oASVF25UCBtVpAlivxaurhese28KdOCPOPzben1EdCo5pLKGF6hyKOntlTzf50NIa1NcMlV_hoTuZoRLa8M1p9fWPptzO1-2lHll3GPRQ0TN6rNk95gyKVY6v6pz0PY2MTnMTXj9E46s4qPyt_gUUJ4440-bce0zLMHRTjmomxQSmJoe-lXVvEnUsjrN6FD4H_jWdr4a4fJok2KHU648TrR4gHNborgSOKcBf4x0MOFmk5U-bxD2mZguxhZbbFiPCGPiO" },
+    ];
+
+    const [slides, setSlides] = useState(initialSlides);
+
+    // Drag and Drop Refs
+    const dragItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
+
+    const handleDragStart = (e: React.DragEvent<HTMLDivElement>, position: number) => {
+        dragItem.current = position;
+        // Effect to show grabbing
+        e.dataTransfer.effectAllowed = "move";
+        // Ghost image usually handled by browser, but better transparency can be style here
+    };
+
+    const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, position: number) => {
+        dragOverItem.current = position;
+        e.preventDefault();
+    };
+
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        // Essential to allow dropping
+        e.preventDefault();
+    }
+
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        const copyListItems = [...slides];
+        if (dragItem.current !== null && dragOverItem.current !== null) {
+            const dragItemContent = copyListItems[dragItem.current];
+            copyListItems.splice(dragItem.current, 1);
+            copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+            dragItem.current = null;
+            dragOverItem.current = null;
+            setSlides(copyListItems);
+        }
+    };
+
     const handleOpenDesign = (slide: any) => {
         setActiveDesignSlide(slide);
     };
@@ -20,18 +63,25 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
         setActiveDesignSlide(null);
     };
 
-    const slides = [
-        { id: 1, title: "Q3 Financial Overview", description: "Title slide with high-level summary of Q3 financial performance and key achievements.", script: "Welcome everyone. Today we will discuss...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuAMRUYMaQ7CukbYmLbQHLCVNpKtysfHlwElrM6-ixNedSlLjzy2WZsROJ_rdYICZ2xfxJqQRdKBGDSKVmDOFnT9lYTHanufjIt3FT1HMASM12ffaH4tWJ346sPPYGQZ979bYfIytCVAtidi-B0AGqBrHfJTGvDEOlHlflJ436yUhB1KPLfajCgMNlkEKPLNyycLr4oS80A5sGNjP_HN3hM5q7bSzqKvQPpRSXFegtipL-jNsXi_DJ3byUjIiaLk-X1ATf-ZyGjBw10G" },
-        { id: 2, title: "Growth Metrics 2024", description: "Detailed breakdown of user acquisition costs and retention rates compared to last year.", script: "As you can see on the chart, our user...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuCD__G9k4j04P_in85vFtmB3sI6BelNH-gBnDTiLf9Ub56A49mvgdMmoiXTzPOPBQwFQdEvMWdonGq9RouaJkhtjOwcb0cvvbLv7DsG4JpbrUMa0gf0MheBB-GFnnroNB83Jd8z1PSfofcgzRwtPcJaMJhr-2HiO33hYb_K4_8caKVgAQkvp3dmHBLom4g8KH2u-lIQlPz2aT2Eg3Qz9M0Y6R_U0uNulE04hN1E3M6mS0C-2nz_CEru1RVwEydL4x2ahf85g3J75Zhj", badge: "Font", badgeColor: "#f59e0b" },
-        { id: 3, title: "Meet the Team", description: "Introduction of the core project team members and their specific roles.", script: "I'd like to introduce the core members...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuDOU3py3A_oASVF25UCBtVpAlivxaurhese28KdOCPOPzben1EdCo5pLKGF6hyKOntlTzf50NIa1NcMlV_hoTuZoRLa8M1p9fWPptzO1-2lHll3GPRQ0TN6rNk95gyKVY6v6pz0PY2MTnMTXj9E46s4qPyt_gUUJ4440-bce0zLMHRTjmomxQSmJoe-lXVvEnUsjrN6FD4H_jWdr4a4fJok2KHU648TrR4gHNborgSOKcBf4x0MOFmk5U-bxD2mZguxhZbbFiPCGPiO" },
-    ];
-
-    const renderNormalItem = (slide: any) => (
-        <div className="slide-item" key={slide.id}>
+    const renderNormalItem = (slide: any, index: number) => (
+        <div
+            className="slide-item"
+            key={slide.id}
+            draggable
+            onDragStart={(e) => handleDragStart(e, index)}
+            onDragEnter={(e) => handleDragEnter(e, index)}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            style={{
+                cursor: 'grab',
+                opacity: dragItem.current === index ? 0.5 : 1,
+                border: dragOverItem.current === index ? '2px dashed var(--color-primary)' : '1px solid var(--color-border)',
+            }}
+        >
             {/* Drag Handle */}
             <div className="slide-handle">
                 <span className="material-symbols-outlined">drag_indicator</span>
-                <span>0{slide.id}</span>
+                <span>{String(slide.id).padStart(2, '0')}</span>
             </div>
 
             {/* Thumb */}
@@ -75,11 +125,24 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
         </div>
     );
 
-    const renderCompactItem = (slide: any) => (
-        <div className="compact-item" key={slide.id}>
+    const renderCompactItem = (slide: any, index: number) => (
+        <div
+            className="compact-item"
+            key={slide.id}
+            draggable
+            onDragStart={(e) => handleDragStart(e, index)}
+            onDragEnter={(e) => handleDragEnter(e, index)}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            style={{
+                cursor: 'grab',
+                opacity: dragItem.current === index ? 0.5 : 1,
+                border: dragOverItem.current === index ? '2px dashed var(--color-primary)' : '1px solid var(--color-border)', // Visual feedback
+            }}
+        >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', cursor: 'grab', paddingLeft: 8 }}>
                 <span className="material-symbols-outlined" style={{ fontSize: 20 }}>drag_indicator</span>
-                <span style={{ fontSize: 12, fontWeight: 'bold', width: 20, textAlign: 'center' }}>0{slide.id}</span>
+                <span style={{ fontSize: 12, fontWeight: 'bold', width: 20, textAlign: 'center' }}>{String(slide.id).padStart(2, '0')}</span>
             </div>
             <div className="compact-thumb" style={{ width: 80, height: 48, borderRadius: 4, overflow: 'hidden', position: 'relative', border: '1px solid #3b4754' }}>
                 <div style={{ width: '100%', height: '100%', backgroundImage: `url('${slide.thumb}')`, backgroundSize: 'cover' }}></div>
@@ -212,7 +275,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
 
                         {/* Items Rendered */}
                         <div style={viewMode === 'compact' ? { display: 'flex', flexDirection: 'column', gap: '8px' } : { display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            {slides.map(slide => viewMode === 'compact' ? renderCompactItem(slide) : renderNormalItem(slide))}
+                            {slides.map((slide, index) => viewMode === 'compact' ? renderCompactItem(slide, index) : renderNormalItem(slide, index))}
                         </div>
                     </div>
 

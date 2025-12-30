@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Editor.css'; // Utilizing shared styles or ensure separate CSS file if needed
 
 const Workspace: React.FC = () => {
+    const [zoomLevel, setZoomLevel] = useState(84);
+
+    const handleZoomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setZoomLevel(Number(event.target.value));
+    };
+
+    const handleZoomIn = () => {
+        setZoomLevel(prev => Math.min(prev + 10, 200));
+    };
+
+    const handleZoomOut = () => {
+        setZoomLevel(prev => Math.max(prev - 10, 10));
+    };
+
     return (
         <main className="editor-workspace">
             {/* Top Ruler / Info area (Optional, skipping for now as per previous placeholder) */}
@@ -16,7 +30,10 @@ const Workspace: React.FC = () => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                     position: 'relative',
                     padding: '64px',
-                    userSelect: 'none' // Prevent selection of UI
+                    userSelect: 'none', // Prevent selection of UI
+                    transform: `scale(${zoomLevel / 100})`,
+                    transformOrigin: 'center center',
+                    transition: 'transform 0.1s ease-out'
                 }}>
                     {/* Content of Slide 2 as per screenshot */}
                     <div style={{ border: '1px dashed transparent', padding: '8px', marginBottom: '32px', transition: 'border-color 0.2s', cursor: 'text' }} className="hover:border-gray-300">
@@ -108,17 +125,29 @@ const Workspace: React.FC = () => {
 
                     {/* Zoom Controls */}
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                        <button className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>remove</span></button>
+                        <button onClick={handleZoomOut} className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>remove</span></button>
 
-                        {/* Simplified Slider */}
-                        <div style={{ position: 'relative', width: '96px', height: '4px', background: '#3b4754', borderRadius: '2px', cursor: 'pointer' }}>
-                            <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: '60%', background: '#9dabb9', borderRadius: '2px' }}></div>
-                            <div style={{ position: 'absolute', left: '60%', top: '50%', transform: 'translate(-50%, -50%)', width: '12px', height: '12px', background: 'white', borderRadius: '50%', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }}></div>
+                        {/* Interactive Slider */}
+                        <div style={{ display: 'flex', alignItems: 'center', width: '96px' }}>
+                            <input
+                                type="range"
+                                min="10"
+                                max="200"
+                                value={zoomLevel}
+                                onChange={handleZoomChange}
+                                style={{
+                                    width: '100%',
+                                    height: '4px',
+                                    accentColor: '#137fec',
+                                    borderRadius: '2px',
+                                    cursor: 'pointer'
+                                }}
+                            />
                         </div>
 
-                        <button className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>add</span></button>
-                        <span style={{ width: '32px', textAlign: 'right' }}>84%</span>
-                        <button className="btn-icon-small hover-white" title="Fit to window"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>fit_screen</span></button>
+                        <button onClick={handleZoomIn} className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>add</span></button>
+                        <span style={{ width: '32px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{zoomLevel}%</span>
+                        <button onClick={() => setZoomLevel(84)} className="btn-icon-small hover-white" title="Fit to window"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>fit_screen</span></button>
                     </div>
                 </div>
             </div>
