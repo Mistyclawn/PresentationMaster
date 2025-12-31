@@ -27,6 +27,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToDashboard }) => {
                         <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#283039', border: '2px solid var(--color-bg-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 'bold', marginLeft: -8 }}>+2</div>
                     </div>
 
+                    {/* Presentation Master Button */}
+                    <button className="presentation-master-btn" onClick={onNavigateToDashboard}>
+                        <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>auto_awesome</span>
+                        <span>Presentation Master</span>
+                    </button>
+
                     <button className="btn-icon-text btn-secondary">
                         <span className="material-symbols-outlined" style={{ fontSize: 18 }}>share</span>
                         <span>Share</span>
@@ -113,11 +119,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigateToDashboard }) => {
                     </div>
                 </div>
 
-                {/* Presentation Master Button */}
-                <button className="presentation-master-btn" onClick={onNavigateToDashboard}>
-                    <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>auto_awesome</span>
-                    <span>Presentation Master</span>
-                </button>
+
             </div>
         </header>
     );

@@ -70,6 +70,20 @@ body {
     overflow: hidden;
     height: 100vh;
     width: 100vw;
+    /* Prevent text selection and cursor blinking globally */
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}
+
+/* Allow selection and cursor interaction for input fields */
+input,
+textarea,
+[contenteditable="true"],
+.selectable {
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
 }
 
 /* Global Scrollbar */
