@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import './Editor.css'; // Utilizing shared styles or ensure separate CSS file if needed
 
-const Workspace: React.FC = () => {
+interface WorkspaceProps {
+    isSidebarOpen?: boolean;
+    onToggleSidebar?: () => void;
+}
+
+const Workspace: React.FC<WorkspaceProps> = ({ isSidebarOpen = true, onToggleSidebar }) => {
     const [zoomLevel, setZoomLevel] = useState(84);
+    const [viewMode, setViewMode] = useState<'grid' | 'single' | 'slideshow'>('single');
 
     const handleZoomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setZoomLevel(Number(event.target.value));
@@ -100,32 +106,62 @@ const Workspace: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0 16px',
+                padding: '0 16px 0 8px', // Adjusted padding for sidebar toggle
                 fontSize: '12px',
                 color: '#9dabb9',
                 flexShrink: 0
             }}>
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                    <span style={{ cursor: 'pointer' }} className="hover-white">Slide 2 of 5</span>
-                    <span style={{ cursor: 'pointer' }} className="hover-white">English (US)</span>
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }} className="hover-white">
-                        <span className="material-symbols-outlined" style={{ fontSize: 14 }}>notes</span> Notes
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <button className="btn-bottom-bar">
+                        <span className="text-responsive-long">Slide 2 of 5</span>
+                        <span className="text-responsive-short">2 / 5</span>
+                    </button>
+
+                    <button className="btn-bottom-bar">
+                        <span className="text-responsive-long">English (US)</span>
+                        <span className="text-responsive-short">En(US)</span>
+                    </button>
+
+                    <button className="btn-bottom-bar">
+                        <span className="material-symbols-outlined" style={{ fontSize: 14 }}>notes</span>
+                        <span className="icon-responsive-label">Notes</span>
                     </button>
                 </div>
 
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                     {/* View Modes */}
+
+
+                    {/* View Modes */}
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                        <button className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>grid_view</span></button>
-                        <button className="btn-icon-small active white"><span className="material-symbols-outlined filled" style={{ fontSize: 16 }}>crop_landscape</span></button>
-                        <button className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>slideshow</span></button>
+                        <button
+                            className={`btn-icon-small ${viewMode === 'grid' ? 'active' : ''}`}
+                            onClick={() => setViewMode('grid')}
+                            title="Grid View"
+                        >
+                            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>grid_view</span>
+                        </button>
+                        <button
+                            className={`btn-icon-small ${viewMode === 'single' ? 'active' : ''}`}
+                            onClick={() => setViewMode('single')}
+                            title="Single View"
+                        >
+                            <span className="material-symbols-outlined filled" style={{ fontSize: 16 }}>crop_landscape</span>
+                        </button>
+                        <button
+                            className={`btn-icon-small ${viewMode === 'slideshow' ? 'active' : ''}`}
+                            onClick={() => setViewMode('slideshow')}
+                            title="Slideshow"
+                        >
+                            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>slideshow</span>
+                        </button>
                     </div>
 
                     <div style={{ width: 1, height: 16, background: '#3b4754' }}></div>
 
                     {/* Zoom Controls */}
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                        <button onClick={handleZoomOut} className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>remove</span></button>
+                        <button onClick={handleZoomOut} className="btn-icon-small"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>remove</span></button>
 
                         {/* Interactive Slider */}
                         <div style={{ display: 'flex', alignItems: 'center', width: '96px' }}>
@@ -145,9 +181,9 @@ const Workspace: React.FC = () => {
                             />
                         </div>
 
-                        <button onClick={handleZoomIn} className="btn-icon-small hover-white"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>add</span></button>
+                        <button onClick={handleZoomIn} className="btn-icon-small"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>add</span></button>
                         <span style={{ width: '32px', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{zoomLevel}%</span>
-                        <button onClick={() => setZoomLevel(84)} className="btn-icon-small hover-white" title="Fit to window"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>fit_screen</span></button>
+                        <button onClick={() => setZoomLevel(84)} className="btn-icon-small" title="Fit to window"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>fit_screen</span></button>
                     </div>
                 </div>
             </div>

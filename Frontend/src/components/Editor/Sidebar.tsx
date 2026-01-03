@@ -1,7 +1,11 @@
 import React from 'react';
 import './Sidebar.css';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+    onToggle: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
     const slides = [1, 2, 3, 4, 5]; // Dummy data
     const activeSlide = 2;
 
@@ -9,8 +13,12 @@ const Sidebar: React.FC = () => {
         <aside className="editor-sidebar">
             <div className="sidebar-header">
                 <span>SLIDES</span>
-                <button style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>sort</span>
+                <button
+                    onClick={onToggle}
+                    style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', display: 'flex' }}
+                    title="Close Sidebar"
+                >
+                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>dock_to_left</span>
                 </button>
             </div>
 
