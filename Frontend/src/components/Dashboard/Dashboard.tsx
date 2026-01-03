@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import './Dashboard.css';
 import SlideDesignModal from './SlideDesignModal';
 
+import Header from '../Editor/Header';
+
 interface DashboardProps {
     onBack: () => void;
 }
@@ -85,7 +87,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
             </div>
 
             {/* Thumb */}
-            <div className="slide-thumb" style={{ width: '256px', aspectRatio: '16/9', display: 'block', position: 'relative', borderRadius: 8, overflow: 'hidden', border: '1px solid #3b4754' }}>
+            <div className="slide-thumb" style={{ width: '256px', maxWidth: '100%', aspectRatio: '16/9', display: 'block', position: 'relative', borderRadius: 8, overflow: 'hidden', border: '1px solid #3b4754' }}>
                 <div style={{ width: '100%', height: '100%', backgroundImage: `url('${slide.thumb}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
                 {slide.badge && (
                     <div style={{ position: 'absolute', top: 8, right: 8, background: slide.badgeColor, color: 'white', fontSize: '10px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
@@ -166,31 +168,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
 
     return (
         <div className="dashboard-container dark">
-            {/* Header */}
-            <header className="dashboard-header">
-                <div className="dashboard-brand">
-                    <div className="brand-icon">
-                        <span className="material-symbols-outlined">dashboard</span>
-                    </div>
-                    <h2 style={{ fontSize: '18px', fontWeight: '700' }}>Presentation Master</h2>
-                </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <button className="header-btn header-btn-mode">
-                        <span className="material-symbols-outlined" style={{ fontSize: 20, marginRight: 8 }}>slideshow</span>
-                        <span>Presentation Mode</span>
-                    </button>
-                    <button onClick={onBack} className="header-btn header-btn-primary">
-                        <span className="material-symbols-outlined" style={{ fontSize: 18, marginRight: 8 }}>arrow_back</span>
-                        <span>Back to Editor</span>
-                    </button>
-                    <button className="header-icon-btn">
-                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>help</span>
-                    </button>
-                    <button className="header-icon-btn">
-                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>settings</span>
-                    </button>
-                </div>
-            </header>
+            <Header mode="dashboard" onNavigateToEditor={onBack} />
 
             <main className="dashboard-main">
                 {/* Top Stats - Force Row Layout on Desktop */}

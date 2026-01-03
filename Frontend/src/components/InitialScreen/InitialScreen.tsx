@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './InitialScreen.css';
+import Header from '../Editor/Header';
 
 interface InitialScreenProps {
     hasActiveProject: boolean;
@@ -32,128 +33,103 @@ const InitialScreen: React.FC<InitialScreenProps> = ({
 
     return (
         <div className="initial-screen-container dark">
-            <header className="initial-header">
-                <div className="initial-brand">
-                    <div className="brand-logo-box">
-                        <span className="material-symbols-outlined" style={{ fontSize: 24 }}>dashboard</span>
-                    </div>
-                    <h2 className="brand-title">Presentation Master</h2>
-                </div>
-                {hasActiveProject && (
-                    <div className="header-actions">
-                        <button className="btn-header btn-header-mode" onClick={onNavigateToDashboard}>
-                            <span className="material-symbols-outlined" style={{ marginRight: 8, fontSize: 20 }}>slideshow</span>
-                            <span>Presentation Mode</span>
-                        </button>
-                        <button className="btn-header btn-header-primary" onClick={onNavigateToEditor}>
-                            <span className="material-symbols-outlined" style={{ marginRight: 8, fontSize: 18 }}>arrow_back</span>
-                            <span>Back to Editor</span>
-                        </button>
-                    </div>
-                )}
-                {!hasActiveProject && (
-                    <div className="header-actions">
-                        <div style={{ fontSize: 14, color: '#64748b', fontWeight: 500, marginRight: 12 }}>Welcome Back</div>
-                    </div>
-                )}
-                <div className="header-actions">
-                    <button className="btn-header-icon">
-                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>help</span>
-                    </button>
-                    <button className="btn-header-icon">
-                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>settings</span>
-                    </button>
-                </div>
-            </header>
+            <Header
+                mode="initial"
+                hasActiveProject={hasActiveProject}
+                onNavigateToDashboard={onNavigateToDashboard}
+                onNavigateToEditor={onNavigateToEditor}
+            />
 
             <main className="initial-main">
-                <div className="initial-content-wrapper">
+                <div className="layout-wrapper">
+                    <div className="initial-content-wrapper">
 
-                    {/* Grid Actions */}
-                    <div className="initial-grid">
-                        {/* Create Slide Card */}
-                        <div className="col-left">
-                            <div className="card-create">
-                                <div className="card-header">
-                                    <div className="card-icon-box">
-                                        <span className="material-symbols-outlined">add_circle</span>
+                        {/* Grid Actions */}
+                        <div className="initial-grid">
+                            {/* Create Slide Card */}
+                            <div className="col-left">
+                                <div className="card-create">
+                                    <div className="card-header">
+                                        <div className="card-icon-box">
+                                            <span className="material-symbols-outlined">add_circle</span>
+                                        </div>
+                                        <div className="card-title-group">
+                                            <h3>New Project</h3>
+                                            <p>Start from scratch with a new slide</p>
+                                        </div>
                                     </div>
-                                    <div className="card-title-group">
-                                        <h3>New Project</h3>
-                                        <p>Start from scratch with a new slide</p>
+                                    <div className="card-body">
+                                        <div className="form-group">
+                                            <label className="form-label">Project Title</label>
+                                            <input
+                                                className="form-input"
+                                                placeholder="e.g. Q3 Strategy Overview"
+                                                value={title}
+                                                onChange={(e) => setTitle(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="form-group" style={{ flex: 1 }}>
+                                            <label className="form-label">Initial Script</label>
+                                            <textarea
+                                                className="form-textarea"
+                                                placeholder="Type your narration here..."
+                                                value={script}
+                                                onChange={(e) => setScript(e.target.value)}
+                                            ></textarea>
+                                        </div>
+                                        <button className="btn-create" onClick={handleCreateSlide}>
+                                            <span className="material-symbols-outlined">check_circle</span> Create Project
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="card-body">
-                                    <div className="form-group">
-                                        <label className="form-label">Project Title</label>
-                                        <input
-                                            className="form-input"
-                                            placeholder="e.g. Q3 Strategy Overview"
-                                            value={title}
-                                            onChange={(e) => setTitle(e.target.value)}
-                                        />
+                            </div>
+
+                            {/* Side Actions */}
+                            <div className="col-right">
+                                {/* Generate Outline */}
+                                <button className="action-card card-generate">
+                                    <div className="bg-icon-overlay">
+                                        <span className="material-symbols-outlined bg-icon-large">psychology</span>
                                     </div>
-                                    <div className="form-group" style={{ flex: 1 }}>
-                                        <label className="form-label">Initial Script</label>
-                                        <textarea
-                                            className="form-textarea"
-                                            placeholder="Type your narration here..."
-                                            value={script}
-                                            onChange={(e) => setScript(e.target.value)}
-                                        ></textarea>
+                                    <div className="action-content">
+                                        <div className="action-icon-box">
+                                            <span className="material-symbols-outlined">auto_awesome</span>
+                                        </div>
+                                        <h3 className="action-title">Generate Outline</h3>
+                                        <p className="action-desc">Use AI to suggest topics and narrative flow.</p>
                                     </div>
-                                    <button className="btn-create" onClick={handleCreateSlide}>
-                                        <span className="material-symbols-outlined">check_circle</span> Create Project
-                                    </button>
-                                </div>
+                                </button>
+
+                                {/* Import Content */}
+                                <button className="action-card card-import">
+                                    <div className="bg-icon-overlay">
+                                        <span className="material-symbols-outlined bg-icon-large">folder_open</span>
+                                    </div>
+                                    <div className="action-content">
+                                        <div className="action-icon-box" style={{ backgroundColor: '#d1fae5', color: '#059669' }}>
+                                            <span className="material-symbols-outlined">upload_file</span>
+                                        </div>
+                                        <h3 className="action-title">Import Content</h3>
+                                        <p className="action-desc">Bring in existing PDF, Word, or PPTX files.</p>
+                                    </div>
+                                </button>
                             </div>
                         </div>
 
-                        {/* Side Actions */}
-                        <div className="col-right">
-                            {/* Generate Outline */}
-                            <button className="action-card card-generate">
-                                <div className="bg-icon-overlay">
-                                    <span className="material-symbols-outlined bg-icon-large">psychology</span>
-                                </div>
-                                <div className="action-content">
-                                    <div className="action-icon-box">
-                                        <span className="material-symbols-outlined">auto_awesome</span>
+                        {/* Recent Projects Section */}
+                        <div className="recent-projects-section">
+                            <h3 className="section-title">Recent Projects</h3>
+                            <div className="recent-grid">
+                                {recentProjects.map(project => (
+                                    <div key={project.id} className="recent-card" onClick={onOpenProject}>
+                                        <div className="recent-thumb" style={{ backgroundImage: `url('${project.thumb}')` }}></div>
+                                        <div className="recent-info">
+                                            <h4 className="recent-title">{project.title}</h4>
+                                            <p className="recent-date">{project.date}</p>
+                                        </div>
                                     </div>
-                                    <h3 className="action-title">Generate Outline</h3>
-                                    <p className="action-desc">Use AI to suggest topics and narrative flow.</p>
-                                </div>
-                            </button>
-
-                            {/* Import Content */}
-                            <button className="action-card card-import">
-                                <div className="bg-icon-overlay">
-                                    <span className="material-symbols-outlined bg-icon-large">folder_open</span>
-                                </div>
-                                <div className="action-content">
-                                    <div className="action-icon-box" style={{ backgroundColor: '#d1fae5', color: '#059669' }}>
-                                        <span className="material-symbols-outlined">upload_file</span>
-                                    </div>
-                                    <h3 className="action-title">Import Content</h3>
-                                    <p className="action-desc">Bring in existing PDF, Word, or PPTX files.</p>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Recent Projects Section */}
-                    <div className="recent-projects-section">
-                        <h3 className="section-title">Recent Projects</h3>
-                        <div className="recent-grid">
-                            {recentProjects.map(project => (
-                                <div key={project.id} className="recent-card" onClick={onOpenProject}>
-                                    <div className="recent-thumb" style={{ backgroundImage: `url('${project.thumb}')` }}></div>
-                                    <div className="recent-info">
-                                        <h4 className="recent-title">{project.title}</h4>
-                                        <p className="recent-date">{project.date}</p>
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
