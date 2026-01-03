@@ -12,14 +12,25 @@
     justify-content: space-between;
     padding: 8px 16px;
     border-bottom: 1px solid #3b4754;
-    height: 56px;
+    min-height: 56px;
+    height: auto;
+    /* Allow wrapping growth */
+    flex-wrap: wrap;
+    /* Allow items to wrap */
+    gap: 12px;
+    /* Increased gap for wrapped items */
     box-sizing: border-box;
 }
 
 .header-title-area {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    flex: 1 1 auto;
+    /* Allow shrinking and growing */
+    min-width: 200px;
+    /* Minimum width before wrapping */
+    flex-wrap: wrap;
 }
 
 .app-icon {
@@ -49,8 +60,14 @@
 
 .header-actions {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
+    flex-shrink: 0;
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 100%;
+    /* Prevent overflow */
 }
 
 /* Replicating Tailwind .h-8 .px-4 .text-xs .font-bold .rounded-lg */

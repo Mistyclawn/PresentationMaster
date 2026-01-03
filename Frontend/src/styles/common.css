@@ -223,7 +223,14 @@
 
 /* --- Layout Utilities --- */
 .layout-wrapper {
-    min-width: 1024px;
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /* Center functionality if ever needed, but main issue is width constraint */
+    max-width: 1600px;
+    /* Limit max width to prevent infinite stretching on ultra-wide */
+    padding: 0 16px;
+    /* Add padding to prevent edge bleeding on small screens */
+    box-sizing: border-box;
 }

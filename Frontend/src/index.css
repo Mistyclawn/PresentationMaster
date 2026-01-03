@@ -2,3 +2,8 @@
 @import './styles/common.css';
 
 /* Vanilla CSS Setup */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

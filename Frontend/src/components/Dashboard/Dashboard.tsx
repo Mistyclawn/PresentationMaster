@@ -87,7 +87,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
             </div>
 
             {/* Thumb */}
-            <div className="slide-thumb" style={{ width: '256px', maxWidth: '100%', aspectRatio: '16/9', display: 'block', position: 'relative', borderRadius: 8, overflow: 'hidden', border: '1px solid #3b4754' }}>
+            <div className="slide-thumb-wrapper">
                 <div style={{ width: '100%', height: '100%', backgroundImage: `url('${slide.thumb}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
                 {slide.badge && (
                     <div style={{ position: 'absolute', top: 8, right: 8, background: slide.badgeColor, color: 'white', fontSize: '10px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
@@ -113,7 +113,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
             </div>
 
             {/* Side Actions (Time, Delete, Design) */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end', marginLeft: 12, borderLeft: '1px solid #3b4754', paddingLeft: 12, minWidth: 120 }}>
+            <div className="slide-actions">
                 <button className="btn-design" onClick={() => handleOpenDesign(slide)}>
                     <span className="material-symbols-outlined" style={{ fontSize: 16 }}>palette</span> Design
                 </button>
@@ -171,157 +171,159 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
             <Header mode="dashboard" onNavigateToEditor={onBack} />
 
             <main className="dashboard-main">
-                {/* Top Stats - Force Row Layout on Desktop */}
-                <section className="stats-grid">
-                    {/* Hero Card */}
-                    <div className="hero-card">
-                        <div
-                            style={{
-                                position: 'absolute', inset: 0, backgroundSize: 'cover', backgroundPosition: 'center',
-                                backgroundImage: "linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuANM8ywubdfs1CdcBLrFsdgfAlE_8flizP1qC3587XiWgnOt3KpLDDXA8Znn87NyWFXag9QwpZb_5gMcG16xf1eXyOMZx4No6vn_5rWOuis3uMakIM80K8eQx-pKR4yZdZAo76RxoC_C_6xnqZukTuyYUf3wfw_NM4s2C0ZqyH8UPhtZkSGcFmIWm2yZM8622dI5kSjR_xpCB7s0ZLQbGkKrPR5Sx5h1lMK5DGHX-ZmzVJDdvAq7Ifb2aSaeQtsxXDlKDFUW62uUub1')"
-                            }}
-                        />
-                        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: 20 }}>
-                            <span style={{ padding: '4px 8px', borderRadius: '4px', backgroundColor: 'var(--color-primary)', color: 'white', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase' }}>Draft</span>
-                            <h1 style={{ color: 'white', fontSize: '24px', fontWeight: 'bold', marginTop: '8px', lineHeight: 1.2 }}>Q3 2024 Financial Overview</h1>
-                            <p style={{ color: '#e2e8f0', fontSize: '14px', marginTop: '4px' }}>Last edited 2 mins ago by Sarah M.</p>
-                        </div>
-                    </div>
-
-                    {/* Stat Cards */}
-                    <div className="stats-cards">
-                        <div className="stat-card">
-                            <div className="stat-header" style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: 14, fontWeight: 500 }}>
-                                <span>Total Slides</span>
-                                <span className="material-symbols-outlined">layers</span>
+                <div className="layout-wrapper">
+                    {/* Top Stats - Force Row Layout on Desktop */}
+                    <section className="stats-grid">
+                        {/* Hero Card */}
+                        <div className="hero-card">
+                            <div
+                                style={{
+                                    position: 'absolute', inset: 0, backgroundSize: 'cover', backgroundPosition: 'center',
+                                    backgroundImage: "linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuANM8ywubdfs1CdcBLrFsdgfAlE_8flizP1qC3587XiWgnOt3KpLDDXA8Znn87NyWFXag9QwpZb_5gMcG16xf1eXyOMZx4No6vn_5rWOuis3uMakIM80K8eQx-pKR4yZdZAo76RxoC_C_6xnqZukTuyYUf3wfw_NM4s2C0ZqyH8UPhtZkSGcFmIWm2yZM8622dI5kSjR_xpCB7s0ZLQbGkKrPR5Sx5h1lMK5DGHX-ZmzVJDdvAq7Ifb2aSaeQtsxXDlKDFUW62uUub1')"
+                                }}
+                            />
+                            <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: 20 }}>
+                                <span style={{ padding: '4px 8px', borderRadius: '4px', backgroundColor: 'var(--color-primary)', color: 'white', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase' }}>Draft</span>
+                                <h1 style={{ color: 'white', fontSize: '24px', fontWeight: 'bold', marginTop: '8px', lineHeight: 1.2 }}>Q3 2024 Financial Overview</h1>
+                                <p style={{ color: '#e2e8f0', fontSize: '14px', marginTop: '4px' }}>Last edited 2 mins ago by Sarah M.</p>
                             </div>
-                            <div>
-                                <div className="stat-value">12</div>
-                                <div style={{ color: '#10b981', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: 14 }}>trending_up</span> Optimum length
+                        </div>
+
+                        {/* Stat Cards */}
+                        <div className="stats-cards">
+                            <div className="stat-card">
+                                <div className="stat-header" style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: 14, fontWeight: 500 }}>
+                                    <span>Total Slides</span>
+                                    <span className="material-symbols-outlined">layers</span>
+                                </div>
+                                <div>
+                                    <div className="stat-value">12</div>
+                                    <div style={{ color: '#10b981', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 14 }}>trending_up</span> Optimum length
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-header" style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: 14, fontWeight: 500 }}>
+                                    <span>Est. Read Time</span>
+                                    <span className="material-symbols-outlined">schedule</span>
+                                </div>
+                                <div>
+                                    <div className="stat-value">5 <span style={{ fontSize: '18px', fontWeight: '400', color: '#64748b' }}>mins</span></div>
+                                    <div style={{ color: '#10b981', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 14 }}>check_circle</span> Good pacing
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="stat-card alert">
+                                <div className="stat-header" style={{ display: 'flex', justifyContent: 'space-between', color: '#f59e0b', fontSize: 14, fontWeight: 500 }}>
+                                    <span>Design Issues</span>
+                                    <span className="material-symbols-outlined">warning</span>
+                                </div>
+                                <div>
+                                    <div className="stat-value" style={{ color: 'white' }}>3</div>
+                                    <div style={{ color: '#fbbf24', fontSize: '14px', fontWeight: '500', marginTop: '4px' }}>
+                                        Inconsistent fonts detected
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="stat-card">
-                            <div className="stat-header" style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: 14, fontWeight: 500 }}>
-                                <span>Est. Read Time</span>
-                                <span className="material-symbols-outlined">schedule</span>
-                            </div>
-                            <div>
-                                <div className="stat-value">5 <span style={{ fontSize: '18px', fontWeight: '400', color: '#64748b' }}>mins</span></div>
-                                <div style={{ color: '#10b981', fontSize: '14px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: 14 }}>check_circle</span> Good pacing
+                    </section>
+
+                    {/* Info Grid - Ensure Grid Layout */}
+                    <div className="content-grid">
+                        {/* Detailed Slides Narrative - Span 8 */}
+                        <div className="narrative-col">
+                            <div className="narrative-header">
+                                <h3 className="narrative-title">Narrative Flow</h3>
+
+                                {/* View Mode Toggles */}
+                                <div className="view-toggles">
+                                    <button className="toggle-btn">
+                                        <span className="material-symbols-outlined" style={{ fontSize: 16 }}>sort</span> Auto-Sort
+                                    </button>
+                                    <button
+                                        className={`toggle-btn ${viewMode === 'compact' ? 'active' : ''}`}
+                                        onClick={() => setViewMode(viewMode === 'normal' ? 'compact' : 'normal')}
+                                    >
+                                        <span className="material-symbols-outlined" style={{ fontSize: 16 }}>view_agenda</span>
+                                        {viewMode === 'normal' ? 'Compact View' : 'Compact View'}
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="stat-card alert">
-                            <div className="stat-header" style={{ display: 'flex', justifyContent: 'space-between', color: '#f59e0b', fontSize: 14, fontWeight: 500 }}>
-                                <span>Design Issues</span>
-                                <span className="material-symbols-outlined">warning</span>
+
+                            {/* Items Rendered */}
+                            <div style={viewMode === 'compact' ? { display: 'flex', flexDirection: 'column', gap: '8px' } : { display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                {slides.map((slide, index) => viewMode === 'compact' ? renderCompactItem(slide, index) : renderNormalItem(slide, index))}
                             </div>
-                            <div>
-                                <div className="stat-value" style={{ color: 'white' }}>3</div>
-                                <div style={{ color: '#fbbf24', fontSize: '14px', fontWeight: '500', marginTop: '4px' }}>
-                                    Inconsistent fonts detected
+                        </div>
+
+                        {/* Right Sidebar - Span 4 - Explicitly Rendered */}
+                        <div className="sidebar-col">
+                            <div className="sidebar-card">
+                                <div style={{ padding: '16px', borderBottom: '1px solid #3b4754', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1a1f26' }}>
+                                    <h3 style={{ fontWeight: 'bold', fontSize: 16 }}>Design Consistency</h3>
+                                    <span style={{ background: 'rgba(245, 158, 11, 0.3)', color: '#f59e0b', fontSize: '12px', fontWeight: 'bold', padding: '4px 8px', borderRadius: '100px' }}>85% Score</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Info Grid - Ensure Grid Layout */}
-                <div className="content-grid">
-                    {/* Detailed Slides Narrative - Span 8 */}
-                    <div className="narrative-col">
-                        <div className="narrative-header">
-                            <h3 className="narrative-title">Narrative Flow</h3>
-
-                            {/* View Mode Toggles */}
-                            <div className="view-toggles">
-                                <button className="toggle-btn">
-                                    <span className="material-symbols-outlined" style={{ fontSize: 16 }}>sort</span> Auto-Sort
-                                </button>
-                                <button
-                                    className={`toggle-btn ${viewMode === 'compact' ? 'active' : ''}`}
-                                    onClick={() => setViewMode(viewMode === 'normal' ? 'compact' : 'normal')}
-                                >
-                                    <span className="material-symbols-outlined" style={{ fontSize: 16 }}>view_agenda</span>
-                                    {viewMode === 'normal' ? 'Compact View' : 'Compact View'}
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Items Rendered */}
-                        <div style={viewMode === 'compact' ? { display: 'flex', flexDirection: 'column', gap: '8px' } : { display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            {slides.map((slide, index) => viewMode === 'compact' ? renderCompactItem(slide, index) : renderNormalItem(slide, index))}
-                        </div>
-                    </div>
-
-                    {/* Right Sidebar - Span 4 - Explicitly Rendered */}
-                    <div className="sidebar-col">
-                        <div className="sidebar-card">
-                            <div style={{ padding: '16px', borderBottom: '1px solid #3b4754', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1a1f26' }}>
-                                <h3 style={{ fontWeight: 'bold', fontSize: 16 }}>Design Consistency</h3>
-                                <span style={{ background: 'rgba(245, 158, 11, 0.3)', color: '#f59e0b', fontSize: '12px', fontWeight: 'bold', padding: '4px 8px', borderRadius: '100px' }}>85% Score</span>
-                            </div>
-                            <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                                    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                                        <div style={{ minWidth: 20, marginTop: 2 }}><span className="material-symbols-outlined" style={{ color: '#f59e0b', fontSize: 20 }}>text_fields</span></div>
-                                        <div style={{ flex: 1 }}>
-                                            <p style={{ fontSize: '14px', fontWeight: '500', color: '#e2e8f0', margin: 0 }}>Mixed Fonts Detected</p>
-                                            <p style={{ fontSize: '12px', color: '#64748b', marginTop: 2, margin: 0 }}>Slide 2 and 5 use 'Arial'...</p>
+                                <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                                        <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                                            <div style={{ minWidth: 20, marginTop: 2 }}><span className="material-symbols-outlined" style={{ color: '#f59e0b', fontSize: 20 }}>text_fields</span></div>
+                                            <div style={{ flex: 1 }}>
+                                                <p style={{ fontSize: '14px', fontWeight: '500', color: '#e2e8f0', margin: 0 }}>Mixed Fonts Detected</p>
+                                                <p style={{ fontSize: '12px', color: '#64748b', marginTop: 2, margin: 0 }}>Slide 2 and 5 use 'Arial'...</p>
+                                            </div>
+                                            <button style={{ color: 'var(--color-primary)', fontSize: 12, fontWeight: 'bold', border: 'none', background: 'none', cursor: 'pointer', marginLeft: 'auto' }}>Fix</button>
                                         </div>
-                                        <button style={{ color: 'var(--color-primary)', fontSize: 12, fontWeight: 'bold', border: 'none', background: 'none', cursor: 'pointer', marginLeft: 'auto' }}>Fix</button>
-                                    </div>
-                                    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                                        <div style={{ minWidth: 20, marginTop: 2 }}><span className="material-symbols-outlined" style={{ color: '#10b981', fontSize: 20 }}>palette</span></div>
-                                        <div style={{ flex: 1 }}>
-                                            <p style={{ fontSize: '14px', fontWeight: '500', color: '#e2e8f0', margin: 0 }}>Color Palette</p>
-                                            <p style={{ fontSize: '12px', color: '#64748b', marginTop: 2, margin: 0 }}>Consistent across all 12 slides.</p>
+                                        <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                                            <div style={{ minWidth: 20, marginTop: 2 }}><span className="material-symbols-outlined" style={{ color: '#10b981', fontSize: 20 }}>palette</span></div>
+                                            <div style={{ flex: 1 }}>
+                                                <p style={{ fontSize: '14px', fontWeight: '500', color: '#e2e8f0', margin: 0 }}>Color Palette</p>
+                                                <p style={{ fontSize: '12px', color: '#64748b', marginTop: 2, margin: 0 }}>Consistent across all 12 slides.</p>
+                                            </div>
+                                            <span className="material-symbols-outlined" style={{ color: '#10b981', fontSize: 18, marginLeft: 'auto' }}>check</span>
                                         </div>
-                                        <span className="material-symbols-outlined" style={{ color: '#10b981', fontSize: 18, marginLeft: 'auto' }}>check</span>
+                                    </div>
+
+                                    <div style={{ padding: '12px', background: '#111418', borderRadius: 8, border: '1px solid #3b4754' }}>
+                                        <p style={{ fontSize: 12, fontWeight: 'bold', color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8, marginTop: 0 }}>Primary Styles</p>
+                                        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#137fec', border: '2px solid #3b4754', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}></div>
+                                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#111418', border: '2px solid #3b4754', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}></div>
+                                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#ffffff', border: '2px solid #3b4754', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}></div>
+                                        </div>
+                                        <p style={{ fontSize: 12, color: '#94a3b8', margin: 0 }}>Font: <span style={{ color: '#cbd5e1', fontWeight: 500 }}>Inter, Noto Sans</span></p>
+                                    </div>
+
+                                    <button className="btn-unify">
+                                        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>magic_button</span> Unify Design Across All Slides
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="sidebar-card ai-card">
+                                <div style={{ padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(4px)' }}>
+                                    <h3 style={{ fontWeight: 'bold', display: 'flex', gap: '8px', alignItems: 'center', fontSize: 16 }}>
+                                        <span className="material-symbols-outlined" style={{ color: '#818cf8' }}>psychology</span>
+                                        AI Narrative Check
+                                    </h3>
+                                </div>
+                                <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+                                    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: 12 }}>
+                                        <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#e0e7ff', margin: 0 }}>
+                                            <span style={{ fontWeight: 'bold', color: '#a5b4fc' }}>Suggestion:</span> The transition between Slide 2 (Growth Metrics) and Slide 3 (Team) feels abrupt.
+                                        </p>
+                                        <button className="btn-generate">Generate Bridge Slide</button>
+                                    </div>
+
+                                    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: 12, display: 'flex', gap: 12, alignItems: 'center' }}>
+                                        <span className="material-symbols-outlined" style={{ color: '#34d399' }}>check_circle</span>
+                                        <p style={{ fontSize: 14, color: '#cbd5e1', margin: 0 }}>Tone is consistent (Professional/Formal).</p>
                                     </div>
                                 </div>
-
-                                <div style={{ padding: '12px', background: '#111418', borderRadius: 8, border: '1px solid #3b4754' }}>
-                                    <p style={{ fontSize: 12, fontWeight: 'bold', color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8, marginTop: 0 }}>Primary Styles</p>
-                                    <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#137fec', border: '2px solid #3b4754', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}></div>
-                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#111418', border: '2px solid #3b4754', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}></div>
-                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#ffffff', border: '2px solid #3b4754', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}></div>
-                                    </div>
-                                    <p style={{ fontSize: 12, color: '#94a3b8', margin: 0 }}>Font: <span style={{ color: '#cbd5e1', fontWeight: 500 }}>Inter, Noto Sans</span></p>
+                                <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <button className="btn-analysis">Run Full Analysis</button>
                                 </div>
-
-                                <button className="btn-unify">
-                                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>magic_button</span> Unify Design Across All Slides
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="sidebar-card ai-card">
-                            <div style={{ padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(4px)' }}>
-                                <h3 style={{ fontWeight: 'bold', display: 'flex', gap: '8px', alignItems: 'center', fontSize: 16 }}>
-                                    <span className="material-symbols-outlined" style={{ color: '#818cf8' }}>psychology</span>
-                                    AI Narrative Check
-                                </h3>
-                            </div>
-                            <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-                                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: 12 }}>
-                                    <p style={{ fontSize: '14px', lineHeight: '1.5', color: '#e0e7ff', margin: 0 }}>
-                                        <span style={{ fontWeight: 'bold', color: '#a5b4fc' }}>Suggestion:</span> The transition between Slide 2 (Growth Metrics) and Slide 3 (Team) feels abrupt.
-                                    </p>
-                                    <button className="btn-generate">Generate Bridge Slide</button>
-                                </div>
-
-                                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: 12, display: 'flex', gap: 12, alignItems: 'center' }}>
-                                    <span className="material-symbols-outlined" style={{ color: '#34d399' }}>check_circle</span>
-                                    <p style={{ fontSize: 14, color: '#cbd5e1', margin: 0 }}>Tone is consistent (Professional/Formal).</p>
-                                </div>
-                            </div>
-                            <div style={{ padding: '16px', background: 'rgba(0,0,0,0.2)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                                <button className="btn-analysis">Run Full Analysis</button>
                             </div>
                         </div>
                     </div>
