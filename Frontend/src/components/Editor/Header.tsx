@@ -33,6 +33,7 @@ const Header: React.FC<HeaderProps> = ({
                     )}
 
                     {/* Title & Status */}
+                    {/* Title & Status */}
                     <div className="header-title">
                         {mode === 'editor' ? (
                             <>
@@ -53,59 +54,46 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 <div className="header-actions">
-                    {/* Mode Specific Actions */}
+                    {/* Avatars (Editor only) */}
                     {mode === 'editor' && (
-                        <>
-                            {/* Avatars */}
-                            <div className="flex -space-x-2" style={{ display: 'flex', marginRight: 12 }}>
-                                <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'url(https://lh3.googleusercontent.com/aida-public/AB6AXuAgDdMD-xvOaXkZysnVKynkEVWBs4OsiWOwASkfWvG20XqmA3MUAraRSKuF8qLsyAg1XmulMuPSa6Q-ATrGIH1VPDsGN_5isp2Af2OpbIjlzd3Bu-LiRK9i5n6SJt3-bfSV61fIG7uJ6LXlzYTTamQC7GN09a6h3FS1cgMo7PguGb4hfCXjor31vbBkGps0ezTK3mCishaaAj9hWjvhfLdcrf0Hbe-4qmmZHLIW1fAcwrLObuyLVfTUOjc_0tWgS5v8GXEumTtyWxKQ) center/cover', border: '2px solid var(--color-bg-dark)' }}></div>
-                                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#283039', border: '2px solid var(--color-bg-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 'bold', marginLeft: -8 }}>+2</div>
-                            </div>
-
-                            {/* Presentation Master Button */}
-                            <button className="presentation-master-btn" onClick={onNavigateToDashboard}>
-                                <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>auto_awesome</span>
-                                <span>Presentation Master</span>
-                            </button>
-
-                            <button className="btn-icon-text btn-secondary">
-                                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>share</span>
-                                <span>Share</span>
-                            </button>
-
-                            <button className="btn-icon-text btn-primary">
-                                <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>play_arrow</span>
-                                <span>Present</span>
-                            </button>
-                        </>
+                        <div className="flex -space-x-2" style={{ display: 'flex', marginRight: 12 }}>
+                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'url(https://lh3.googleusercontent.com/aida-public/AB6AXuAgDdMD-xvOaXkZysnVKynkEVWBs4OsiWOwASkfWvG20XqmA3MUAraRSKuF8qLsyAg1XmulMuPSa6Q-ATrGIH1VPDsGN_5isp2Af2OpbIjlzd3Bu-LiRK9i5n6SJt3-bfSV61fIG7uJ6LXlzYTTamQC7GN09a6h3FS1cgMo7PguGb4hfCXjor31vbBkGps0ezTK3mCishaaAj9hWjvhfLdcrf0Hbe-4qmmZHLIW1fAcwrLObuyLVfTUOjc_0tWgS5v8GXEumTtyWxKQ) center/cover', border: '2px solid var(--color-bg-dark)' }}></div>
+                            <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#283039', border: '2px solid var(--color-bg-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 'bold', marginLeft: -8 }}>+2</div>
+                        </div>
                     )}
 
-                    {mode === 'dashboard' && (
-                        <>
-                            <button className="btn-icon-text btn-secondary" style={{ backgroundColor: 'var(--color-text-main)', color: 'var(--color-bg-surface)' }}>
-                                <span className="material-symbols-outlined" style={{ fontSize: 20, marginRight: 8 }}>slideshow</span>
-                                <span>Presentation Mode</span>
-                            </button>
-                            <button onClick={onNavigateToEditor} className="btn-icon-text btn-primary">
-                                <span className="material-symbols-outlined" style={{ fontSize: 18, marginRight: 8 }}>arrow_back</span>
+                    {/* 1. Navigation Button (Dashboard <-> Editor) */}
+                    {mode === 'editor' ? (
+                        <button className="presentation-master-btn" onClick={onNavigateToDashboard}>
+                            <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>auto_awesome</span>
+                            <span>Presentation Master</span>
+                        </button>
+                    ) : (
+                        (mode === 'dashboard' || (mode === 'initial' && hasActiveProject)) && (
+                            <button className="presentation-master-btn" onClick={onNavigateToEditor} style={{ backgroundColor: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text-main)' }}>
+                                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_back</span>
                                 <span>Back to Editor</span>
                             </button>
-                        </>
+                        )
                     )}
 
-                    {mode === 'initial' && hasActiveProject && (
-                        <>
-                            <button className="btn-icon-text btn-secondary" style={{ backgroundColor: 'var(--color-text-main)', color: 'var(--color-bg-surface)' }} onClick={onNavigateToDashboard}>
-                                <span className="material-symbols-outlined" style={{ fontSize: 20, marginRight: 8 }}>slideshow</span>
-                                <span>Presentation Mode</span>
-                            </button>
-                            <button className="btn-icon-text btn-primary" onClick={onNavigateToEditor}>
-                                <span className="material-symbols-outlined" style={{ fontSize: 18, marginRight: 8 }}>arrow_back</span>
-                                <span>Back to Editor</span>
-                            </button>
-                        </>
+                    {/* 2. Unified Present Mode Button */}
+                    {(mode === 'editor' || mode === 'dashboard' || (mode === 'initial' && hasActiveProject)) && (
+                        <button className="btn-icon-text btn-primary">
+                            <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>slideshow</span>
+                            <span>Present Mode</span>
+                        </button>
                     )}
 
+                    {/* 3. Share Button (Always far right for Editor/Dashboard contexts) */}
+                    {(mode === 'editor' || mode === 'dashboard') && (
+                        <button className="btn-icon-text btn-secondary">
+                            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>share</span>
+                            <span>Share</span>
+                        </button>
+                    )}
+
+                    {/* Welcome Text for Initial Empty State */}
                     {mode === 'initial' && !hasActiveProject && (
                         <div style={{ fontSize: 14, color: '#64748b', fontWeight: 500, marginRight: 12 }}>Welcome Back</div>
                     )}

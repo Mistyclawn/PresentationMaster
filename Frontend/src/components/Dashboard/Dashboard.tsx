@@ -16,9 +16,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
 
     // Initial Data
     const initialSlides = [
-        { id: 1, title: "Q3 Financial Overview", description: "Title slide with high-level summary of Q3 financial performance and key achievements.", script: "Welcome everyone. Today we will discuss...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuAMRUYMaQ7CukbYmLbQHLCVNpKtysfHlwElrM6-ixNedSlLjzy2WZsROJ_rdYICZ2xfxJqQRdKBGDSKVmDOFnT9lYTHanufjIt3FT1HMASM12ffaH4tWJ346sPPYGQZ979bYfIytCVAtidi-B0AGqBrHfJTGvDEOlHlflJ436yUhB1KPLfajCgMNlkEKPLNyycLr4oS80A5sGNjP_HN3hM5q7bSzqKvQPpRSXFegtipL-jNsXi_DJ3byUjIiaLk-X1ATf-ZyGjBw10G" },
-        { id: 2, title: "Growth Metrics 2024", description: "Detailed breakdown of user acquisition costs and retention rates compared to last year.", script: "As you can see on the chart, our user...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuCD__G9k4j04P_in85vFtmB3sI6BelNH-gBnDTiLf9Ub56A49mvgdMmoiXTzPOPBQwFQdEvMWdonGq9RouaJkhtjOwcb0cvvbLv7DsG4JpbrUMa0gf0MheBB-GFnnroNB83Jd8z1PSfofcgzRwtPcJaMJhr-2HiO33hYb_K4_8caKVgAQkvp3dmHBLom4g8KH2u-lIQlPz2aT2Eg3Qz9M0Y6R_U0uNulE04hN1E3M6mS0C-2nz_CEru1RVwEydL4x2ahf85g3J75Zhj", badge: "Font", badgeColor: "#f59e0b" },
-        { id: 3, title: "Meet the Team", description: "Introduction of the core project team members and their specific roles.", script: "I'd like to introduce the core members...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuDOU3py3A_oASVF25UCBtVpAlivxaurhese28KdOCPOPzben1EdCo5pLKGF6hyKOntlTzf50NIa1NcMlV_hoTuZoRLa8M1p9fWPptzO1-2lHll3GPRQ0TN6rNk95gyKVY6v6pz0PY2MTnMTXj9E46s4qPyt_gUUJ4440-bce0zLMHRTjmomxQSmJoe-lXVvEnUsjrN6FD4H_jWdr4a4fJok2KHU648TrR4gHNborgSOKcBf4x0MOFmk5U-bxD2mZguxhZbbFiPCGPiO" },
+        { id: 1, title: "Q3 Financial Overview", description: "Title slide with high-level summary of Q3 financial performance and key achievements.", script: "Welcome everyone. Today we will discuss...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuAMRUYMaQ7CukbYmLbQHLCVNpKtysfHlwElrM6-ixNedSlLjzy2WZsROJ_rdYICZ2xfxJqQRdKBGDSKVmDOFnT9lYTHanufjIt3FT1HMASM12ffaH4tWJ346sPPYGQZ979bYfIytCVAtidi-B0AGqBrHfJTGvDEOlHlflJ436yUhB1KPLfajCgMNlkEKPLNyycLr4oS80A5sGNjP_HN3hM5q7bSzqKvQPpRSXFegtipL-jNsXi_DJ3byUjIiaLk-X1ATf-ZyGjBw10G", time: "0:45" },
+        { id: 2, title: "Growth Metrics 2024", description: "Detailed breakdown of user acquisition costs and retention rates compared to last year.", script: "As you can see on the chart, our user...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuCD__G9k4j04P_in85vFtmB3sI6BelNH-gBnDTiLf9Ub56A49mvgdMmoiXTzPOPBQwFQdEvMWdonGq9RouaJkhtjOwcb0cvvbLv7DsG4JpbrUMa0gf0MheBB-GFnnroNB83Jd8z1PSfofcgzRwtPcJaMJhr-2HiO33hYb_K4_8caKVgAQkvp3dmHBLom4g8KH2u-lIQlPz2aT2Eg3Qz9M0Y6R_U0uNulE04hN1E3M6mS0C-2nz_CEru1RVwEydL4x2ahf85g3J75Zhj", badge: "Font", badgeColor: "#f59e0b", time: "1:20" },
+        { id: 3, title: "Meet the Team", description: "Introduction of the core project team members and their specific roles.", script: "I'd like to introduce the core members...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuDOU3py3A_oASVF25UCBtPAlivxaurhese28KdOCPOPzben1EdCo5pLKGF6hyKOntlTzf50NIa1NcMlV_hoTuZoRLa8M1p9fWPptzO1-2lHll3GPRQ0TN6rNk95gyKVY6v6pz0PY2MTnMTXj9E46s4qPyt_gUUJ4440-bce0zLMHRTjmomxQSmJoe-lXVvEnUsjrN6FD4H_jWdr4a4fJok2KHU648TrR4gHNborgSOKcBf4x0MOFmk5U-bxD2mZguxhZbbFiPCGPiO", time: "0:30" },
     ];
 
     const [slides, setSlides] = useState(initialSlides);
@@ -65,9 +65,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
         setActiveDesignSlide(null);
     };
 
-    const renderNormalItem = (slide: any, index: number) => (
+    const renderItem = (slide: any, index: number) => (
         <div
-            className="slide-item"
+            className={`slide-item ${viewMode === 'compact' ? 'compact' : ''}`}
             key={slide.id}
             draggable
             onDragStart={(e) => handleDragStart(e, index)}
@@ -82,7 +82,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
         >
             {/* Drag Handle */}
             <div className="slide-handle">
-                <span className="material-symbols-outlined">drag_indicator</span>
+                <span className="material-symbols-outlined" style={{ fontSize: 24 }}>drag_indicator</span>
                 <span>{String(slide.id).padStart(2, '0')}</span>
             </div>
 
@@ -96,72 +96,40 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
                 )}
             </div>
 
-            {/* Inputs */}
+            {/* Inputs - Title input morphs, others collapse */}
             <div className="slide-inputs">
-                <div className="input-group">
+                <div className="input-group title-group">
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 500, color: '#94a3b8', marginBottom: 4 }}>Page Title</label>
                     <input className="input-control" defaultValue={slide.title} />
                 </div>
-                <div className="input-group">
+                {/* Collapsible content */}
+                <div className="input-group collapsible">
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 500, color: '#94a3b8', marginBottom: 4 }}>Description</label>
                     <textarea className="input-control" rows={2} defaultValue={slide.description} style={{ resize: 'none' }} />
                 </div>
-                <div className="input-group">
+                <div className="input-group collapsible">
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 500, color: '#94a3b8', marginBottom: 4 }}>Script</label>
-                    <textarea className="input-control" rows={2} defaultValue={slide.script} style={{ resize: 'none' }} />
+                    <textarea className="input-control" rows={1} defaultValue={slide.script} style={{ resize: 'none' }} />
                 </div>
             </div>
 
             {/* Side Actions (Time, Delete, Design) */}
             <div className="slide-actions">
-                <button className="btn-design" onClick={() => handleOpenDesign(slide)}>
-                    <span className="material-symbols-outlined" style={{ fontSize: 16 }}>palette</span> Design
-                </button>
-                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
-                    <div style={{ fontSize: 12, color: '#64748b', display: 'flex', alignItems: 'center', gap: 4, background: 'var(--color-bg-hover)', padding: '2px 8px', borderRadius: 4 }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: 14 }}>timer</span> 45s
-                    </div>
-                    <button className="btn-delete"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>delete</span></button>
-                </div>
-            </div>
-        </div>
-    );
+                <div className="compact-divider"></div>
 
-    const renderCompactItem = (slide: any, index: number) => (
-        <div
-            className="compact-item"
-            key={slide.id}
-            draggable
-            onDragStart={(e) => handleDragStart(e, index)}
-            onDragEnter={(e) => handleDragEnter(e, index)}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            style={{
-                cursor: 'grab',
-                opacity: dragItem.current === index ? 0.5 : 1,
-                border: dragOverItem.current === index ? '2px dashed var(--color-primary)' : '1px solid var(--color-border)', // Visual feedback
-            }}
-        >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--color-primary)', cursor: 'grab', paddingLeft: 8 }}>
-                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>drag_indicator</span>
-                <span style={{ fontSize: 12, fontWeight: 'bold', width: 20, textAlign: 'center' }}>{String(slide.id).padStart(2, '0')}</span>
-            </div>
-            <div className="compact-thumb" style={{ width: 80, height: 48, borderRadius: 4, overflow: 'hidden', position: 'relative', border: '1px solid #3b4754' }}>
-                <div style={{ width: '100%', height: '100%', backgroundImage: `url('${slide.thumb}')`, backgroundSize: 'cover' }}></div>
-                {slide.badge && (
-                    <div style={{ position: 'absolute', top: 4, right: 4, width: 8, height: 8, background: slide.badgeColor, borderRadius: '50%' }}></div>
-                )}
-            </div>
-            <div className="compact-content" style={{ flex: 1, minWidth: 0 }}>
-                <h4 style={{ fontSize: 14, fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: 0 }}>{slide.title}</h4>
-            </div>
-            <div className="compact-actions" style={{ display: 'flex', gap: 8 }}>
-                <button className="compact-action-btn-primary" title="Open Slide Designer" onClick={() => handleOpenDesign(slide)}>
-                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>edit_square</span>
+                <button className="btn-design" onClick={() => handleOpenDesign(slide)}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 16 }}>palette</span>
+                    <span>Design</span>
                 </button>
-                <button className="compact-action-btn delete" title="Delete Slide">
-                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>delete</span>
-                </button>
+
+                <div className="action-meta-group">
+                    <div className="time-badge">
+                        <span className="material-symbols-outlined" style={{ fontSize: 14 }}>timer</span> {slide.time || '0:45'}
+                    </div>
+                    <button className="btn-delete">
+                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>delete</span>
+                    </button>
+                </div>
             </div>
         </div>
     );
@@ -254,7 +222,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
 
                             {/* Items Rendered */}
                             <div style={viewMode === 'compact' ? { display: 'flex', flexDirection: 'column', gap: '8px' } : { display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                {slides.map((slide, index) => viewMode === 'compact' ? renderCompactItem(slide, index) : renderNormalItem(slide, index))}
+                                {slides.map((slide, index) => renderItem(slide, index))}
                             </div>
                         </div>
 

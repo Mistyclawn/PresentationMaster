@@ -208,6 +208,7 @@
 }
 
 /* Slide Items */
+/* Slide Items - Refactored for Animation */
 .slide-item {
     display: flex;
     flex-direction: column;
@@ -217,13 +218,24 @@
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
-    transition: border-color 0.15s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth ease transition */
+    overflow: hidden;
+    /* Contain internal size changes */
 }
 
 @media (min-width: 768px) {
     .slide-item {
         flex-direction: row;
+        align-items: stretch;
+        /* Ensure height stretches for sidebar layout */
     }
+}
+
+.slide-item.compact {
+    padding: 8px 16px 8px 8px;
+    gap: 16px;
+    align-items: center;
 }
 
 .dark .slide-item {
@@ -242,15 +254,24 @@
     justify-content: center;
     gap: 8px;
     width: 32px;
+    flex-shrink: 0;
     color: var(--color-text-muted);
     cursor: grab;
+    transition: all 0.3s ease;
 }
 
 @media (min-width: 768px) {
     .slide-handle {
         display: flex;
-        align-self: center;
+        align-self: inherit;
+        /* Let it align based on container */
     }
+}
+
+.slide-item.compact .slide-handle {
+    /* In compact, handle might be smaller or same? User said use full view's. 
+       Full view is vertical column. We keep it. */
+    gap: 4px;
 }
 
 .slide-handle span:last-child {
@@ -259,13 +280,81 @@
     text-align: center;
 }
 
+.slide-thumb-wrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .slide-thumb-wrapper {
+        width: 256px;
+    }
+}
+
+.slide-item.compact .slide-thumb-wrapper {
+    width: 80px;
+    height: 48px;
+    aspect-ratio: auto;
+    border-radius: 4px;
+    margin: 0;
+}
+
 
 .slide-inputs {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-width: 0;
+    /* Prevent flex overflow */
+    transition: all 0.3s ease;
 }
+
+.slide-item.compact .slide-inputs {
+    gap: 0;
+}
+
+/* Input Styles */
+.input-group {
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 200px;
+    /* Arbitrary large height for expansion */
+    opacity: 1;
+}
+
+.slide-item.compact .input-group.collapsible {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.slide-item.compact .input-group.title-group label {
+    display: none !important;
+}
+
+.slide-item.compact .input-group.title-group input {
+    /* Make input look like text in compact mode */
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 700;
+    height: auto;
+    pointer-events: none;
+    /* Readonly feel */
+    color: var(--color-text-main);
+    width: 100%;
+    text-overflow: ellipsis;
+}
+
 
 .slide-actions {
     display: flex;
@@ -276,15 +365,8 @@
     padding-top: 16px;
     border-top: 1px solid var(--color-border);
     gap: 12px;
-}
-
-.slide-thumb-wrapper {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    position: relative;
-    border: 1px solid var(--color-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
 }
 
 @media (min-width: 768px) {
@@ -300,19 +382,30 @@
         border-left: 1px solid var(--color-border);
         align-items: flex-end;
     }
-
-    .slide-thumb-wrapper {
-        width: 256px;
-        flex-shrink: 0;
-    }
 }
 
-/* Replaces .input-control with no extra styles if we use common.css input-control */
-.input-control {
-    /* Extended props if any, mostly handled by common.css */
-    width: 100%;
+.slide-item.compact .slide-actions {
+    /* In compact, we want row layout on desktop too. 
+       We cannot animate flex-direction.
+       So we keep it column, but force wrap?
+       Or we force flex-direction row via !important and accept jump? 
+       User said 'smoothly'. Structure changes are hard. 
+       Let's try flex-wrap approach.
+    */
+    flex-direction: row;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+    padding-left: 16px;
+    border: none;
+    border-left: none;
+    /* Remove duplicate separation, let divider handle it */
+    gap: 12px;
 }
 
+/* Design Button Morphing */
 .btn-design {
     display: flex;
     align-items: center;
@@ -327,13 +420,75 @@
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.btn-design:hover {
-    background-color: rgba(19, 127, 236, 0.1);
-    border-color: rgba(19, 127, 236, 0.4);
+.slide-item.compact .btn-design {
+    width: 32px;
+    padding: 6px 0;
+    gap: 0;
+    border-color: transparent;
+    /* match icon-only style if needed, or keep border */
+    background-color: var(--color-primary-light);
+    /* Keep consistent */
 }
+
+.btn-design span:last-child {
+    /* Text span */
+    transition: all 0.3s ease;
+    opacity: 1;
+    max-width: 100px;
+}
+
+.slide-item.compact .btn-design span:last-child {
+    opacity: 0;
+    max-width: 0;
+}
+
+/* Time & Delete Group Morphing */
+.action-meta-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.slide-item.compact .action-meta-group {
+    flex-direction: row;
+    width: auto;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Time Badge */
+.time-badge {
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--color-bg-hover);
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.slide-item.compact .time-badge {
+    background: transparent;
+    padding: 0;
+    font-weight: 500;
+}
+
+/* Replaces .input-control with no extra styles if we use common.css input-control */
+.input-control {
+    /* Extended props if any, mostly handled by common.css */
+    width: 100%;
+}
+
 
 .btn-delete {
     padding: 6px;
@@ -351,62 +506,22 @@
     background-color: rgba(239, 68, 68, 0.1);
 }
 
-/* Compact Item */
-.compact-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background-color: var(--color-bg-surface);
-    padding: 8px 16px 8px 8px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
-    transition: border-color 0.15s;
+/* Compact Divider */
+.compact-divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--color-border);
+    margin: 0;
+    /* managed by gap */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+    /* Hidden in normal */
 }
 
-.dark .compact-item {
-    background-color: var(--color-bg-surface-dark);
-    border-color: var(--color-border-dark);
-}
-
-.compact-item:hover {
-    border-color: rgba(19, 127, 236, 0.5);
-}
-
-.compact-action-btn-primary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    color: var(--color-primary);
-    background-color: var(--color-primary-light);
-    transition: all 0.15s;
-}
-
-.compact-action-btn-primary:hover {
-    background-color: rgba(19, 127, 236, 0.1);
-}
-
-.compact-action-btn.delete {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: var(--color-text-muted);
-}
-
-.compact-action-btn.delete:hover {
-    color: #ef4444;
-    background-color: rgba(239, 68, 68, 0.1);
+.slide-item.compact .compact-divider {
+    display: block;
+    opacity: 1;
 }
 
 /* Sidebar Cards */
