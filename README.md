@@ -199,15 +199,19 @@ npm run electron:dev
 ```
 Vite 개발 서버와 Electron이 동시에 실행됩니다.
 
-### 프로덕션 빌드
+### 빌드 (Production)
 
+#### 웹 빌드
 ```bash
-# 웹 빌드
 npm run build
+```
+`dist` 폴더에 정적 파일이 생성됩니다.
 
-# Electron 앱 빌드
+#### Electron 앱 빌드
+```bash
 npm run electron:build
 ```
+운영체제에 맞는 실행 파일이 생성됩니다.
 
 ---
 
