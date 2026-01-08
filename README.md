@@ -1,4 +1,4 @@
-# PPTXManager
+# PPTXManager - PresentationMaster
 
 <div align="center">
 
@@ -18,276 +18,133 @@
 
 - **발표 설계 지원**: 슬라이드와 스크립트를 함께 관리하며 체계적인 발표 준비
 - **디자인 일관성**: AI 기반 디자인 분석으로 전문적이고 통일된 프레젠테이션 제작
-- **오프라인 우선**: 인터넷 없이도 모든 기능 사용 가능 (온라인 기능은 옵션)
-- **효율적인 워크플로우**: MS PowerPoint의 친숙함과 현대적인 UX의 결합
+- **오프라인 우선**: Electron 기반 데스크톱 앱으로 인터넷 없이 모든 기능 사용 (Offline-first)
+- **효율적인 워크플로우**: React 18 + Vite의 빠른 성능과 MS PowerPoint의 친숙함 결합
 
 ---
 
 ## ✨ 주요 기능
 
 ### 1. 📝 슬라이드 편집 (Editor)
-- MS PowerPoint 스타일의 직관적인 편집 인터페이스
-- 기본 그래픽 요소 지원 (원, 사각형, 텍스트 박스, 이미지)
-- 여러 테마와 디자인 템플릿 제공
-- PPTX 파일 가져오기/내보내기
+- **EditorLayout.tsx**: MS PowerPoint 스타일의 직관적인 편집 인터페이스
+- **Workspace**: 직관적인 그래픽 요소 편집 (ShapeElement: Rect, Circle, Text, Image)
+- **실시간 렌더링**: 변경 사항 즉시 반영
 
-### 2. 🎯 Presentation Master (핵심 기능)
-발표 준비를 위한 통합 대시보드
+### 2. 🎯 Presentation Master (Dashboard)
+발표 준비를 위한 통합 대시보드 (`Dashboard.tsx`)
 
-- **내러티브 플로우 관리**: 슬라이드별 제목, 설명, 스크립트를 한눈에
-- **타임라인 관리**: 각 슬라이드의 예상 발표 시간 설정 및 전체 소요 시간 계산
-- **컴팩트 뷰**: 많은 슬라이드를 효율적으로 관리하는 압축 보기 모드
-- **드래그 앤 드롭**: 직관적인 슬라이드 순서 재배치
+- **내러티브 플로우**: 슬라이드별 제목, 설명, 스크립트 통합 관리
+- **타임라인 관리**: 슬라이드별 소요 시간 설정 및 전체 리허설 시간 계산
+- **컴팩트 뷰**: 대량의 슬라이드를 효율적으로 관리하는 요약 보기
+- **직관적 제어**: 드래그 앤 드롭으로 순서 재배치
 
-### 3. 🎨 디자인 일관성 관리 (Design Consistency)
-- **자동 디자인 분석**: 폰트, 색상, 레이아웃 일관성 검사
-- **통합 디자인 컨트롤**: 모든 슬라이드에 일괄 스타일 적용
-- **디자인 이슈 탐지**: 불일치하는 요소 자동 감지 및 수정 제안
-- **프라이머리 스타일 관리**: 프로젝트 전체의 색상 팔레트와 폰트 관리
-
-### 4. 🤖 AI 기반 내러티브 분석
-- **발표 흐름 분석**: 슬라이드 간 전환의 자연스러움 평가
-- **브릿지 슬라이드 생성**: 부자연스러운 전환 구간에 연결 슬라이드 자동 제안
-- **톤 일관성 체크**: 발표 전체의 어조와 스타일 분석
-- **LLM 옵션**: 온라인 API 또는 로컬 모델 선택 가능
-
-### 5. 🎤 발표 모드 (Presentation Mode)
-- **프레젠테이션 모드**: 실제 발표용 전체 화면 보기
-- **연습 모드**: 타이머와 스크립트를 함께 보며 리허설
-- **발표 피드백**: 연습 시간 기록 및 개선점 분석
+### 3. 🎨 디자인 시스템 (Design Consistency)
+- **Design Template**: 프로젝트 레벨의 테마, 색상, 폰트 관리 (`variables.css` 기반)
+- **SlideDesignModal**: 개별/일괄 디자인 적용 및 분석
+- **자동 검사**: 폰트, 색상, 레이아웃의 디자인 템플릿 준수 여부 확인
 
 ---
 
-## 🛠 기술 스택
+## 🏗 아키텍처 (Architecture Essentials)
 
-### Frontend
-- **프레임워크**: React 18.2 + TypeScript
-- **빌드 도구**: Vite 4.4
-- **스타일링**: CSS Modules, CSS Variables
-- **아이콘**: Google Material Symbols
+이 프로젝트는 **React 18**, **TypeScript**, **Vite**, **Electron**을 기반으로 구축되었습니다.
 
-### Desktop Application
-- **런타임**: Electron 28
-- **개발 도구**: electron-builder, concurrently
-- **개발 서버**: Vite Dev Server + Electron
+### 1. 컴포넌트 구조 (Component Hierarchy)
+앱은 명확한 3계층 구조를 따릅니다:
 
-### 개발 환경
-- **언어**: TypeScript 5.0
-- **린터**: ESLint + TypeScript ESLint
-- **패키지 관리**: npm
+1.  **App.tsx (Root)**:
+    *   전역 프로젝트 상태 관리 (Project State)
+    *   화면 전환 라우팅 (InitialScreen ↔ Editor ↔ Dashboard)
+2.  **메인 컨테이너**:
+    *   `EditorLayout.tsx`: 슬라이드 편집 및 저작 도구
+    *   `Dashboard.tsx`: 프레젠테이션 기획 및 내러티브 관리
+3.  **기능별 컴포넌트**:
+    *   `Header`, `Sidebar`, `Workspace` (Editor 전용)
+    *   `SlideDesignModal` (디자인 분석 및 적용)
+
+### 2. 데이터 모델 (Data Model)
+핵심 데이터는 개별 컴포넌트가 아닌 **App 레벨**에서 관리됩니다 (State Lifting):
+
+- **`slides[]`**: 슬라이드 객체 배열 (id, title, script, duration, elements[])
+- **`elements[]`**: 각 슬라이드 내의 도형 요소 (ShapeElement - x, y, style)
+- **`designTemplate`**: 전체 테마 색상, 폰트, 레이아웃 규칙
+- **`project`**: 프로젝트 메타데이터 (이름, 생성일, 테마 정보)
+
+**데이터 흐름 원칙**: Props down, Callbacks up.
+
+### 3. IPC 통신 (Electron ↔ React)
+파일 저장 및 시스템 작업은 `preload.js`를 통한 IPC 통신으로 처리합니다.
+- React 컴포넌트는 절대 직접 파일 시스템(`fs`)에 접근하지 않습니다.
+- **Save**: `window.ipc.send('save-pptx', { slides, metadata })`
+- **Load**: `window.ipc.on('file-loaded', handler)`
 
 ---
 
-## 📐 프로젝트 아키텍처
+## 💻 개발 가이드 (Development Workflow)
 
-```mermaid
-graph TB
-    subgraph Frontend [Frontend - React + TypeScript]
-        App[App.tsx]
-        Editor[Editor Layout]
-        Dashboard[Presentation Master]
-        
-        App --> Editor
-        App --> Dashboard
-        
-        subgraph EditorComponents [Editor 컴포넌트]
-            Header[Header]
-            Sidebar[Sidebar]
-            Workspace[Workspace]
-        end
-        
-        subgraph DashboardComponents [Dashboard 컴포넌트]
-            NarrativeFlow[Narrative Flow]
-            DesignConsistency[Design Consistency]
-            AIAnalysis[AI Analysis]
-            SlideDesignModal[Slide Design Modal]
-        end
-        
-        Editor --> EditorComponents
-        Dashboard --> DashboardComponents
-    end
-    
-    subgraph Desktop [Electron Desktop App]
-        ElectronMain[main.js]
-        ElectronPreload[preload.js]
-    end
-    
-    Desktop --> Frontend
-    
-    subgraph Docs [문서 및 기획]
-        Planning[기획.md]
-        ScreenArch[화면 설계]
-        APISpec[API 명세]
-    end
-    
-    style Frontend fill:#4a9eff20
-    style Desktop fill:#47c79920
-    style Docs fill:#f59e0b20
+### 설치 및 실행
+
+```bash
+# 의존성 설치
+npm install
+
+# 개발 모드 실행 (Vite HMR + Electron)
+npm run dev:electron
+
+# 프로덕션 빌드
+npm run build && npm run build:electron
 ```
 
+> **Note**: `dev:electron` 명령어는 Vite 개발 서버를 로컬 포트에 띄우고, Electron 메인 프로세스가 이를 로드하는 방식으로 작동합니다.
+
+### 스타일링 가이드
+- **CSS Variables**: `styles/variables.css`에 정의된 색상(`--primary-color`)과 폰트만 사용합니다.
+- **Global Constraints**: 하드코딩된 색상 사용을 지양하고 디자인 시스템을 준수합니다.
+
 ---
 
-## 📂 프로젝트 구조
+## 📂 폴더 구조 (Key Files)
 
 ```
 PPTXManager/
-├── Frontend/                    # 프론트엔드 애플리케이션
-│   ├── electron/               # Electron 메인 프로세스
-│   │   ├── main.js            # Electron 진입점
-│   │   └── preload.js         # Preload 스크립트
+├── Frontend/
+│   ├── electron/               # Electron 메인 프로세스 (IPC 핸들러)
+│   │   ├── main.js
+│   │   └── preload.js
 │   ├── src/                    # React 소스 코드
-│   │   ├── App.tsx            # 메인 App 컴포넌트
-│   │   ├── components/        # React 컴포넌트
-│   │   │   ├── Editor/        # 슬라이드 편집 화면
-│   │   │   │   ├── EditorLayout.tsx
-│   │   │   │   ├── Header.tsx
-│   │   │   │   ├── Sidebar.tsx
-│   │   │   │   └── Workspace.tsx
-│   │   │   └── Dashboard/     # Presentation Master 화면
-│   │   │       ├── Dashboard.tsx
-│   │   │       └── SlideDesignModal.tsx
-│   │   ├── styles/            # 전역 스타일
-│   │   │   └── variables.css
-│   │   └── main.tsx           # React 진입점
-│   ├── docs/                   # 프로젝트 문서
-│   │   ├── 기획.md            # 프로젝트 기획서
-│   │   ├── ScreenArch/        # 화면 설계 문서
-│   │   │   ├── Editor/
-│   │   │   ├── Presentation_Master_Main/
-│   │   │   ├── Presentation_Design/
-│   │   │   ├── Presentation_Mode/
-│   │   │   ├── Analysis_report/
-│   │   │   └── Unify_Design_Control/
-│   │   └── API 명세/          # API 문서
-│   ├── package.json
-│   ├── vite.config.ts
-│   └── tsconfig.json
-├── Backend/                     # 백엔드 서버 (예정)
-└── README.md                    # 이 파일
+│   │   ├── App.tsx            # [Core] 루트 상태 및 뷰 관리
+│   │   ├── components/
+│   │   │   ├── Dashboard/     # [Presentation Master] 대시보드 및 디자인 모달
+│   │   │   ├── Editor/        # [Editor] 편집 화면 (Layout, Workspace)
+│   │   │   └── InitialScreen/ # 시작 화면
+│   │   ├── styles/            # 전역 스타일 (variables.css)
+│   │   └── main.tsx
+│   └── vite.config.ts         # Vite 설정
+└── README.md
 ```
-
----
-
-## 🚀 설치 및 실행
-
-### 사전 요구사항
-- Node.js 16.x 이상
-- npm 8.x 이상
-
-### 설치
-
-```bash
-# 저장소 클론
-git clone https://github.com/yourusername/PPTXManager.git
-cd PPTXManager/Frontend
-
-# 의존성 설치
-npm install
-```
-
-### 개발 모드 실행
-
-#### 웹 개발 모드 (브라우저)
-```bash
-npm run dev
-```
-브라우저에서 `http://localhost:5173` 접속
-
-#### Electron 개발 모드 (데스크톱)
-```bash
-npm run electron:dev
-```
-Vite 개발 서버와 Electron이 동시에 실행됩니다.
-
-### 빌드 (Production)
-
-#### 웹 빌드
-```bash
-npm run build
-```
-`dist` 폴더에 정적 파일이 생성됩니다.
-
-#### Electron 앱 빌드
-```bash
-npm run electron:build
-```
-운영체제에 맞는 실행 파일이 생성됩니다.
-
----
-
-## 🎨 화면 구성
-
-### 1. Editor (슬라이드 편집 화면)
-MS PowerPoint와 유사한 인터페이스로 슬라이드를 편집합니다.
-
-**구성 요소:**
-- 상단 헤더: 도구 모음 및 Presentation Master로 이동
-- 왼쪽 사이드바: 슬라이드 썸네일 목록
-- 중앙 워크스페이스: 슬라이드 편집 캔버스
-
-### 2. Presentation Master (메인 대시보드)
-프레젠테이션의 전체 구조와 내러티브를 관리하는 핵심 화면입니다.
-
-**화면 모드:**
-- **Initial**: 새 프로젝트 시작 화면
-- **Main**: 기본 상세 보기 (슬라이드별 제목/설명/스크립트 입력)
-- **Compact View**: 압축 보기 (많은 슬라이드 관리용)
-
-**주요 패널:**
-- 프로젝트 정보 카드: 제목, 상태, 마지막 수정 정보
-- 통계 카드: 총 슬라이드 수, 예상 발표 시간, 디자인 이슈 수
-- Narrative Flow: 슬라이드별 내용 편집
-- Design Consistency: 디자인 일관성 분석 및 수정
-- AI Narrative Check: AI 기반 발표 흐름 분석
-
-### 3. Slide Design Modal
-개별 슬라이드의 세부 디자인을 설정하는 모달입니다.
-
-### 4. Unify Design Control
-모든 슬라이드에 일괄적으로 디자인을 적용하는 화면입니다.
-
-### 5. Presentation Mode
-- **Main**: 전체 화면 발표 모드
-- **Practice Mode**: 스크립트와 타이머가 있는 연습 모드
-
-### 6. Analysis Report
-발표 연습 후 피드백과 개선점을 보여주는 리포트 화면입니다.
 
 ---
 
 ## 🗺 개발 로드맵
 
-### ✅ 현재 완료된 기능
-- [x] 기본 프로젝트 구조 설정
-- [x] Electron + React + Vite 통합
-- [x] Editor 레이아웃 구현
-- [x] Presentation Master UI 구현
-- [x] Dashboard 컴포넌트 (Normal/Compact View)
-- [x] Design Consistency 패널
-- [x] Slide Design Modal
+### ✅ 기본 구현 (Baseline)
+- [x] Electron + Vite + React 환경 구축
+- [x] Editor & Dashboard 뷰 전환 아키텍처
+- [x] IPC 기반 파일 통신 구조 설계
 
-### 🚧 개발 중
-- [ ] 슬라이드 편집 기능 (도형, 텍스트, 이미지)
-- [ ] PPTX 파일 가져오기/내보내기
-- [ ] 디자인 일관성 자동 분석 로직
+### 🚧 진행 중 (In Progress)
+- [ ] 슬라이드 데이터 모델(App.tsx)로 상태 리팩토링
+- [ ] ShapeElement 편집을 위한 Workspace 구현
+- [ ] PPTX 파일 I/O 로직 (Electron main.js)
 
-### 📅 향후 계획
-- [ ] 전역 상태 관리(Zustand, Redux 등) 도입: 슬라이드 데이터, 스크립트, 디자인 설정 통합 관리
-- [ ] AI 기반 내러티브 분석 (LLM 통합)
-- [ ] 로컬 LLM 지원
-- [ ] 발표 모드 구현
-- [ ] 연습 모드 및 타이머
-- [ ] 발표 피드백 리포트
-- [ ] 테마 및 템플릿 라이브러리
-- [ ] 클라우드 동기화 (옵션)
-- [ ] 협업 기능 (옵션)
+### 📅 향후 계획 (Future)
+- [ ] AI 기반 디자인 분석 및 브릿지 슬라이드 제안
+- [ ] 협업 도구 및 클라우드 연동
 
----
 
-## 📖 문서
 
-- [프로젝트 기획서](Frontend/docs/기획.md)
-- [화면 설계 문서](Frontend/docs/ScreenArch/)
-- API 명세 (작성 예정)
 
----
+
+
+
+

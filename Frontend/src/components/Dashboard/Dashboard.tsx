@@ -1,16 +1,20 @@
 import React, { useState, useRef } from 'react';
 import './Dashboard.css';
+import { Slide, ProjectMetadata } from '../../types';
 import SlideDesignModal from './SlideDesignModal';
 
 import Header from '../Editor/Header';
 
 interface DashboardProps {
+    slides: Slide[];
+    onUpdateSlides: (slides: Slide[]) => void;
+    projectMetadata: ProjectMetadata | null;
     onBack: () => void;
 }
 
 type ViewMode = 'normal' | 'compact';
 
-const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
+const Dashboard: React.FC<DashboardProps> = ({ slides, onUpdateSlides, projectMetadata, onBack }) => {
     const [viewMode, setViewMode] = useState<ViewMode>('normal');
     const [activeDesignSlide, setActiveDesignSlide] = useState<any>(null);
 
@@ -21,7 +25,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
         { id: 3, title: "Meet the Team", description: "Introduction of the core project team members and their specific roles.", script: "I'd like to introduce the core members...", thumb: "https://lh3.googleusercontent.com/aida-public/AB6AXuDOU3py3A_oASVF25UCBtPAlivxaurhese28KdOCPOPzben1EdCo5pLKGF6hyKOntlTzf50NIa1NcMlV_hoTuZoRLa8M1p9fWPptzO1-2lHll3GPRQ0TN6rNk95gyKVY6v6pz0PY2MTnMTXj9E46s4qPyt_gUUJ4440-bce0zLMHRTjmomxQSmJoe-lXVvEnUsjrN6FD4H_jWdr4a4fJok2KHU648TrR4gHNborgSOKcBf4x0MOFmk5U-bxD2mZguxhZbbFiPCGPiO", time: "0:30" },
     ];
 
-    const [slides, setSlides] = useState(initialSlides);
+    // State lifted to App.tsx
+    // const [slides, setSlides] = useState(initialSlides);
 
     // Drag and Drop Refs
     const dragItem = useRef<number | null>(null);
@@ -53,7 +58,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBack }) => {
             copyListItems.splice(dragOverItem.current, 0, dragItemContent);
             dragItem.current = null;
             dragOverItem.current = null;
-            setSlides(copyListItems);
+            onUpdateSlides(copyListItems);
         }
     };
 

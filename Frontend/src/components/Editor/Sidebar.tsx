@@ -1,11 +1,15 @@
 import React from 'react';
 import './Sidebar.css';
+import { Slide } from '../../types';
 
 interface SidebarProps {
-    onToggle: () => void;
+    slides: Slide[];
+    currentSlideId: string;
+    onSlideSelect: (id: string) => void;
+    onToggle?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
+const Sidebar: React.FC<SidebarProps> = ({ slides = [], currentSlideId, onSlideSelect, onToggle }) => {
     const slides = [1, 2, 3, 4, 5]; // Dummy data
     const activeSlide = 2;
 

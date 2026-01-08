@@ -3,12 +3,18 @@ import './Editor.css';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Workspace from './Workspace';
+import { Slide } from '../../types';
 
-interface EditorLayoutProps {
-    onNavigateToDashboard?: () => void;
+interface EditorLayoutProps {    slides: Slide[];
+    currentSlideId: string;
+    onSlideSelect: (id: string) => void;
+    onUpdateSlide: (slide: Slide) => void;    onNavigateToDashboard?: () => void;
 }
 
-const EditorLayout: React.FC<EditorLayoutProps> = ({ onNavigateToDashboard }) => {
+const EditorLayout: React.FC<EditorLayoutProps> = ({ slides, currentSlideId, onSlideSelect, onUpdateSlide, onNavigateToDashboard }) => {
+    
+    // Find selected slide
+    const selectedSlide = slides.find(s => s.id === currentSlideId);
     const [sidebarWidth, setSidebarWidth] = React.useState(240);
     const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
     const isResizing = React.useRef(false);
@@ -51,7 +57,12 @@ const EditorLayout: React.FC<EditorLayoutProps> = ({ onNavigateToDashboard }) =>
             <div className="editor-body">
                 {isSidebarOpen ? (
                     <div style={{ width: sidebarWidth, position: 'relative', display: 'flex' }}>
-                        <Sidebar onToggle={toggleSidebar} />
+                        <Sidebar 
+                            slides={slides}
+                            currentSlideId={currentSlideId}
+                            onSlideSelect={onSlideSelect}
+                            onToggle={toggleSidebar} 
+                        />
                         <div
                             className="resizer"
                             onMouseDown={startResizing}
@@ -62,7 +73,14 @@ const EditorLayout: React.FC<EditorLayoutProps> = ({ onNavigateToDashboard }) =>
                         <span className="material-symbols-outlined">dock_to_right</span>
                     </button>
                 )}
-                <Workspace isSidebarOpen={isSidebarOpen} onToggleSidebar={toggleSidebar} />
+                {selectedSlide && (
+                    <Workspace 
+                        slide={selectedSlide}
+                        onUpdateSlide={onUpdateSlide}
+                        isSidebarOpen={isSidebarOpen} 
+                        onToggleSidebar={toggleSidebar} 
+                    />
+                )}
             </div>
         </div>
     );

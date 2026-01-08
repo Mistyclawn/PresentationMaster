@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Slide } from '../../types';
 import './Editor.css';
 
 interface WorkspaceProps {
+    slide: Slide;
+    onUpdateSlide: (slide: Slide) => void;
     isSidebarOpen?: boolean;
     onToggleSidebar?: () => void;
 }
 
-const Workspace: React.FC<WorkspaceProps> = ({ isSidebarOpen = true, onToggleSidebar }) => {
+const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOpen = true, onToggleSidebar }) => {
     const [zoomLevel, setZoomLevel] = useState(100);
     const [viewMode, setViewMode] = useState<'grid' | 'single' | 'slideshow'>('single');
     const [isFitToScreen, setIsFitToScreen] = useState(true);
