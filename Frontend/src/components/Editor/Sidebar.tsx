@@ -10,9 +10,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ slides = [], currentSlideId, onSlideSelect, onToggle }) => {
-    const slides = [1, 2, 3, 4, 5]; // Dummy data
-    const activeSlide = 2;
-
     return (
         <aside className="editor-sidebar">
             <div className="sidebar-header">
@@ -27,14 +24,19 @@ const Sidebar: React.FC<SidebarProps> = ({ slides = [], currentSlideId, onSlideS
             </div>
 
             <div className="slide-list">
-                {slides.map((num) => (
-                    <div key={num} className={`slide-thumbnail-item ${num === activeSlide ? 'active' : ''}`}>
-                        <span className="slide-number">{num}</span>
+                {slides.map((slide, index) => (
+                    <div
+                        key={slide.id}
+                        className={`slide-thumbnail-item ${slide.id === currentSlideId ? 'active' : ''}`}
+                        onClick={() => onSlideSelect(slide.id)}
+                    >
+                        <span className="slide-number">{index + 1}</span>
                         <div className="slide-wrapper">
-                            {/* Placeholder content for thumbnail */}
+                            {/* Placeholder content for thumbnail - eventually use slide.thumbnail or render elements */}
                             <div style={{ padding: 8, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                 <div style={{ width: '60%', height: 4, background: '#ddd', marginBottom: 4 }}></div>
                                 <div style={{ width: '40%', height: 4, background: '#eee' }}></div>
+                                {slide.title && <div style={{ fontSize: '8px', marginTop: 4, color: '#666', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{slide.title}</div>}
                             </div>
                         </div>
                     </div>
