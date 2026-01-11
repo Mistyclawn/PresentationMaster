@@ -13,6 +13,14 @@ const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOp
     const [zoomLevel, setZoomLevel] = useState(100);
     const [viewMode, setViewMode] = useState<'grid' | 'single' | 'slideshow'>('single');
     const [isFitToScreen, setIsFitToScreen] = useState(true);
+
+    // Panning State
+    const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+    const [isPanning, setIsPanning] = useState(false);
+    const [isHandMode, setIsHandMode] = useState(false);
+    const lastMousePos = useRef({ x: 0, y: 0 });
+    const isSpacePressed = useRef(false);
+
     const containerRef = useRef<HTMLDivElement>(null);
     const SLIDE_WIDTH = 960;
     const SLIDE_HEIGHT = 540;
@@ -38,6 +46,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOp
         const handleResize = () => {
             const fitZoom = calculateFitZoom();
             setZoomLevel(fitZoom);
+            setPanOffset({ x: 0, y: 0 }); // Reset pan on fit
         };
 
         handleResize(); // Initial calculation
@@ -70,88 +79,164 @@ const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOp
         // The effect will trigger and calculate the zoom
     };
 
+    // Spacebar for Hand Mode
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.code === 'Space' && !e.repeat && !e.target?.toString().includes('Input')) {
+                isSpacePressed.current = true;
+                if (containerRef.current) containerRef.current.style.cursor = 'grab';
+            }
+        };
+
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.code === 'Space') {
+                isSpacePressed.current = false;
+                if (containerRef.current && !isHandMode) containerRef.current.style.cursor = 'default';
+                setIsPanning(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, [isHandMode]);
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (isHandMode || isSpacePressed.current || e.button === 1) {
+            e.preventDefault();
+            setIsPanning(true);
+            lastMousePos.current = { x: e.clientX, y: e.clientY };
+            if (containerRef.current) containerRef.current.style.cursor = 'grabbing';
+        }
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isPanning) return;
+        e.preventDefault();
+
+        const deltaX = e.clientX - lastMousePos.current.x;
+        const deltaY = e.clientY - lastMousePos.current.y;
+
+        setPanOffset(prev => ({
+            x: prev.x + deltaX,
+            y: prev.y + deltaY
+        }));
+
+        lastMousePos.current = { x: e.clientX, y: e.clientY };
+    };
+
+    const handleMouseUp = () => {
+        setIsPanning(false);
+        if (containerRef.current) {
+            containerRef.current.style.cursor = (isHandMode || isSpacePressed.current) ? 'grab' : 'default';
+        }
+    };
+
     return (
-        <main className="editor-workspace">
+        <main className="editor-workspace" onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
             {/* Top Ruler / Info area (Optional, skipping for now as per previous placeholder) */}
 
             {/* Canvas Area */}
             {/* Canvas Area */}
-            <div className="workspace-canvas-area" ref={containerRef}>
-                {/* Scaler Wrapper to occupy real space for scrolling */}
+            <div
+                className="workspace-canvas-area"
+                ref={containerRef}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                style={{
+                    cursor: (isHandMode || isSpacePressed.current) ? 'grab' : 'default',
+                    overflow: 'hidden', // Hide scrollbars, we pan manually
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                {/* Transform Wrapper for Panning */}
                 <div style={{
-                    width: `${(960 * zoomLevel / 100) + (PADDING * 2)}px`,
-                    height: `${(540 * zoomLevel / 100) + (PADDING * 2)}px`,
-                    flexShrink: 0, // Prevent squishing
-                    position: 'relative',
-                    margin: 'auto', // Center when small, scroll properly when large
-                    boxSizing: 'content-box',
-                    transition: 'width 0.1s ease-out, height 0.1s ease-out'
+                    transform: `translate(${panOffset.x}px, ${panOffset.y}px)`,
+                    transition: isPanning ? 'none' : 'transform 0.1s ease-out', // Smooth reset, instant drag
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0
                 }}>
-                    {/* The Slide Canvas - Scaled Content */}
-                    <div className="slide-canvas" style={{
-                        width: '960px',
-                        height: '540px',
-                        backgroundColor: 'white',
+                    {/* Scaler Wrapper - keeps slide centered initially */}
+                    <div style={{
+                        width: `${SLIDE_WIDTH * zoomLevel / 100}px`,
+                        height: `${SLIDE_HEIGHT * zoomLevel / 100}px`,
+                        position: 'relative',
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                        position: 'absolute',
-                        top: PADDING,
-                        left: PADDING,
-                        transform: `scale(${zoomLevel / 100})`,
-                        transformOrigin: 'top left',
-                        transition: 'transform 0.1s ease-out',
-                        overflow: 'hidden' // Clip content to slide bounds
                     }}>
-                        {/* Content of Slide 2 as per screenshot */}
-                        <div style={{ border: '1px dashed transparent', padding: '8px', marginBottom: '32px', transition: 'border-color 0.2s', cursor: 'text' }} className="hover:border-gray-300">
-                            <h1 style={{ fontSize: '48px', fontWeight: '700', color: '#111827', margin: 0, letterSpacing: '-0.025em' }}>Q3 Financial Overview</h1>
-                        </div>
-
-                        <div style={{ display: 'flex', gap: '48px', height: '100%' }}>
-                            <div style={{ width: '50%', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                <div style={{ border: '1px solid #137fec', padding: '8px', margin: '-8px', backgroundColor: 'rgba(19, 127, 236, 0.05)', position: 'relative', cursor: 'move' }}>
-                                    <ul style={{ fontSize: '20px', color: '#374151', listStyleType: 'disc', paddingLeft: '20px', lineHeight: 1.6, margin: 0 }}>
-                                        <li>Revenue growth up by <span style={{ fontWeight: 'bold', color: '#16a34a' }}>15%</span> YoY</li>
-                                        <li>Operating expenses reduced by 8%</li>
-                                        <li>New market acquisition in APAC region</li>
-                                        <li>Product margin increased to 32%</li>
-                                    </ul>
-
-                                    {/* Selection Handles */}
-                                    <div className="handle top-left"></div>
-                                    <div className="handle top-mid"></div>
-                                    <div className="handle top-right"></div>
-                                    <div className="handle mid-left"></div>
-                                    <div className="handle mid-right"></div>
-                                    <div className="handle bot-left"></div>
-                                    <div className="handle bot-mid"></div>
-                                    <div className="handle bot-right"></div>
-                                    <div className="handle-rotate"></div>
-                                </div>
-
-                                <div style={{
-                                    marginTop: '16px',
-                                    padding: '16px',
-                                    backgroundColor: '#eff6ff',
-                                    border: '1px solid #dbeafe',
-                                    borderRadius: '8px',
-                                    display: 'flex',
-                                    gap: '12px',
-                                    alignItems: 'center'
-                                }}>
-                                    <span className="material-symbols-outlined" style={{ color: '#2563eb' }}>tips_and_updates</span>
-                                    <p style={{ fontSize: '14px', color: '#1e40af', margin: 0 }}>Key Takeaway: Strong performance driven by enterprise sector.</p>
-                                </div>
+                        <div className="slide-canvas" style={{
+                            width: '960px',
+                            height: '540px',
+                            backgroundColor: 'white',
+                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                            position: 'absolute',
+                            top: PADDING,
+                            left: PADDING,
+                            transform: `scale(${zoomLevel / 100})`,
+                            transformOrigin: 'top left',
+                            transition: 'transform 0.1s ease-out',
+                            overflow: 'hidden' // Clip content to slide bounds
+                        }}>
+                            {/* Content of Slide 2 as per screenshot */}
+                            <div style={{ border: '1px dashed transparent', padding: '8px', marginBottom: '32px', transition: 'border-color 0.2s', cursor: 'text' }} className="hover:border-gray-300">
+                                <h1 style={{ fontSize: '48px', fontWeight: '700', color: '#111827', margin: 0, letterSpacing: '-0.025em' }}>Q3 Financial Overview</h1>
                             </div>
-                            <div style={{ width: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                {/* Placeholder Chart Graphic */}
-                                <div style={{ width: '100%', height: '200px', position: 'relative' }}>
-                                    <div style={{ position: 'absolute', bottom: 0, left: 0, width: '15%', height: '40%', background: '#60a5fa', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                    <div style={{ position: 'absolute', bottom: 0, left: '20%', width: '15%', height: '55%', background: '#3b82f6', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                    <div style={{ position: 'absolute', bottom: 0, left: '40%', width: '15%', height: '45%', background: '#60a5fa', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                    <div style={{ position: 'absolute', bottom: 0, left: '60%', width: '15%', height: '75%', background: '#2563eb', borderTopLeftRadius: 2, borderTopRightRadius: 2, boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}></div>
-                                    <div style={{ position: 'absolute', bottom: 0, left: '80%', width: '15%', height: '60%', background: '#3b82f6', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                    <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 1, background: '#d1d5db' }}></div>
-                                    <div style={{ position: 'absolute', top: 0, left: 0, height: '100%', width: 1, background: '#d1d5db' }}></div>
+
+                            <div style={{ display: 'flex', gap: '48px', height: '100%' }}>
+                                <div style={{ width: '50%', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <div style={{ border: '1px solid #137fec', padding: '8px', margin: '-8px', backgroundColor: 'rgba(19, 127, 236, 0.05)', position: 'relative', cursor: 'move' }}>
+                                        <ul style={{ fontSize: '20px', color: '#374151', listStyleType: 'disc', paddingLeft: '20px', lineHeight: 1.6, margin: 0 }}>
+                                            <li>Revenue growth up by <span style={{ fontWeight: 'bold', color: '#16a34a' }}>15%</span> YoY</li>
+                                            <li>Operating expenses reduced by 8%</li>
+                                            <li>New market acquisition in APAC region</li>
+                                            <li>Product margin increased to 32%</li>
+                                        </ul>
+
+                                        {/* Selection Handles */}
+                                        <div className="handle top-left"></div>
+                                        <div className="handle top-mid"></div>
+                                        <div className="handle top-right"></div>
+                                        <div className="handle mid-left"></div>
+                                        <div className="handle mid-right"></div>
+                                        <div className="handle bot-left"></div>
+                                        <div className="handle bot-mid"></div>
+                                        <div className="handle bot-right"></div>
+                                        <div className="handle-rotate"></div>
+                                    </div>
+
+                                    <div style={{
+                                        marginTop: '16px',
+                                        padding: '16px',
+                                        backgroundColor: '#eff6ff',
+                                        border: '1px solid #dbeafe',
+                                        borderRadius: '8px',
+                                        display: 'flex',
+                                        gap: '12px',
+                                        alignItems: 'center'
+                                    }}>
+                                        <span className="material-symbols-outlined" style={{ color: '#2563eb' }}>tips_and_updates</span>
+                                        <p style={{ fontSize: '14px', color: '#1e40af', margin: 0 }}>Key Takeaway: Strong performance driven by enterprise sector.</p>
+                                    </div>
+                                </div>
+                                <div style={{ width: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    {/* Placeholder Chart Graphic */}
+                                    <div style={{ width: '100%', height: '200px', position: 'relative' }}>
+                                        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '15%', height: '40%', background: '#60a5fa', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
+                                        <div style={{ position: 'absolute', bottom: 0, left: '20%', width: '15%', height: '55%', background: '#3b82f6', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
+                                        <div style={{ position: 'absolute', bottom: 0, left: '40%', width: '15%', height: '45%', background: '#60a5fa', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
+                                        <div style={{ position: 'absolute', bottom: 0, left: '60%', width: '15%', height: '75%', background: '#2563eb', borderTopLeftRadius: 2, borderTopRightRadius: 2, boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}></div>
+                                        <div style={{ position: 'absolute', bottom: 0, left: '80%', width: '15%', height: '60%', background: '#3b82f6', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
+                                        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 1, background: '#d1d5db' }}></div>
+                                        <div style={{ position: 'absolute', top: 0, left: 0, height: '100%', width: 1, background: '#d1d5db' }}></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -177,6 +262,16 @@ const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOp
                     <button className="btn-bottom-bar">
                         <span className="text-responsive-long">Slide 2 of 5</span>
                         <span className="text-responsive-short">2 / 5</span>
+                    </button>
+
+                    {/* Hand Tool Toggle */}
+                    <div style={{ width: 1, height: 16, background: '#3b4754', margin: '0 4px' }}></div>
+                    <button
+                        className={`btn-icon-small ${isHandMode ? 'active' : ''}`}
+                        onClick={() => setIsHandMode(!isHandMode)}
+                        title="Hand Tool (Space + Drag)"
+                    >
+                        <span className="material-symbols-outlined" style={{ fontSize: 16 }}>pan_tool</span>
                     </button>
 
                     <button className="btn-bottom-bar">
