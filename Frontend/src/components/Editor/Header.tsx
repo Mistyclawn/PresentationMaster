@@ -2,17 +2,19 @@ import React from 'react';
 import './Header.css';
 
 interface HeaderProps {
-    mode?: 'editor' | 'dashboard' | 'initial';
+    mode?: 'editor' | 'dashboard' | 'initial' | 'presentation';
     hasActiveProject?: boolean;
     onNavigateToDashboard?: () => void;
     onNavigateToEditor?: () => void;
+    onNavigateToPresentation?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
     mode = 'editor',
     hasActiveProject = false,
     onNavigateToDashboard,
-    onNavigateToEditor
+    onNavigateToEditor,
+    onNavigateToPresentation
 }) => {
     return (
         <header className="editor-header">
@@ -45,6 +47,8 @@ const Header: React.FC<HeaderProps> = ({
                                 <h1>Presentation Master</h1>
                                 {mode === 'dashboard' ? (
                                     <span>Saved to Drive</span>
+                                ) : mode === 'presentation' ? (
+                                    <span>Presentation Setup</span>
                                 ) : (
                                     <span>Select a project</span>
                                 )}
@@ -62,6 +66,14 @@ const Header: React.FC<HeaderProps> = ({
                         </div>
                     )}
 
+                    {/* Dashboard Button for Presentation Mode */}
+                    {mode === 'presentation' && onNavigateToDashboard && (
+                        <button className="presentation-master-btn" onClick={onNavigateToDashboard} style={{ marginRight: 8 }}>
+                            <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>auto_awesome</span>
+                            <span>Presentation Master</span>
+                        </button>
+                    )}
+
                     {/* 1. Navigation Button (Dashboard <-> Editor) */}
                     {mode === 'editor' ? (
                         <button className="presentation-master-btn" onClick={onNavigateToDashboard}>
@@ -69,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({
                             <span>Presentation Master</span>
                         </button>
                     ) : (
-                        (mode === 'dashboard' || (mode === 'initial' && hasActiveProject)) && (
+                        (mode === 'dashboard' || mode === 'presentation' || (mode === 'initial' && hasActiveProject)) && (
                             <button className="presentation-master-btn" onClick={onNavigateToEditor} style={{ backgroundColor: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text-main)' }}>
                                 <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_back</span>
                                 <span>Back to Editor</span>
@@ -79,14 +91,14 @@ const Header: React.FC<HeaderProps> = ({
 
                     {/* 2. Unified Present Mode Button */}
                     {(mode === 'editor' || mode === 'dashboard' || (mode === 'initial' && hasActiveProject)) && (
-                        <button className="btn-icon-text btn-primary">
+                        <button className="btn-icon-text btn-primary" onClick={onNavigateToPresentation}>
                             <span className="material-symbols-outlined filled" style={{ fontSize: 18 }}>slideshow</span>
                             <span>Present Mode</span>
                         </button>
                     )}
 
-                    {/* 3. Share Button (Always far right for Editor/Dashboard contexts) */}
-                    {(mode === 'editor' || mode === 'dashboard') && (
+                    {/* 3. Share Button (Always far right for Editor/Dashboard/Presentation contexts) */}
+                    {(mode === 'editor' || mode === 'dashboard' || mode === 'presentation') && (
                         <button className="btn-icon-text btn-secondary">
                             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>share</span>
                             <span>Share</span>

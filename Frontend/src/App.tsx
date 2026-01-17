@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import EditorLayout from './components/Editor/EditorLayout';
 import Dashboard from './components/Dashboard/Dashboard';
 import InitialScreen from './components/InitialScreen/InitialScreen';
+import PresentationMode from './components/PresentationMode/PresentationMode';
 import { Slide, ProjectMetadata, DesignTemplate } from './types';
 import './App.css';
 
@@ -23,7 +24,7 @@ const INITIAL_PROJECT: ProjectMetadata = {
 };
 
 function App() {
-    const [view, setView] = useState<'initial' | 'editor' | 'dashboard'>('initial');
+    const [view, setView] = useState<'initial' | 'editor' | 'dashboard' | 'presentation'>('initial');
 
     // Lifted State
     const [project, setProject] = useState<ProjectMetadata | null>(null);
@@ -141,6 +142,17 @@ function App() {
                 onUpdateSlides={handleUpdateSlides}
                 projectMetadata={project}
                 onBack={() => setView('editor')}
+                onNavigateToPresentation={() => setView('presentation')}
+            />
+        );
+    }
+
+    if (view === 'presentation') {
+        return (
+            <PresentationMode
+                slides={slides}
+                onExit={() => setView('editor')}
+                onNavigateToDashboard={() => setView('dashboard')}
             />
         );
     }
@@ -152,6 +164,7 @@ function App() {
             onSlideSelect={setCurrentSlideId}
             onUpdateSlide={handleUpdateSlide}
             onNavigateToDashboard={() => setView('dashboard')}
+            onNavigateToPresentation={() => setView('presentation')}
         />
     );
 }

@@ -5,14 +5,17 @@ import Sidebar from './Sidebar';
 import Workspace from './Workspace';
 import { Slide } from '../../types';
 
-interface EditorLayoutProps {    slides: Slide[];
+interface EditorLayoutProps {
+    slides: Slide[];
     currentSlideId: string;
     onSlideSelect: (id: string) => void;
-    onUpdateSlide: (slide: Slide) => void;    onNavigateToDashboard?: () => void;
+    onUpdateSlide: (slide: Slide) => void;
+    onNavigateToDashboard?: () => void;
+    onNavigateToPresentation?: () => void;
 }
 
-const EditorLayout: React.FC<EditorLayoutProps> = ({ slides, currentSlideId, onSlideSelect, onUpdateSlide, onNavigateToDashboard }) => {
-    
+const EditorLayout: React.FC<EditorLayoutProps> = ({ slides, currentSlideId, onSlideSelect, onUpdateSlide, onNavigateToDashboard, onNavigateToPresentation }) => {
+
     // Find selected slide
     const selectedSlide = slides.find(s => s.id === currentSlideId);
     const [sidebarWidth, setSidebarWidth] = React.useState(240);
@@ -53,15 +56,15 @@ const EditorLayout: React.FC<EditorLayoutProps> = ({ slides, currentSlideId, onS
 
     return (
         <div className="editor-layout">
-            <Header onNavigateToDashboard={onNavigateToDashboard} />
+            <Header onNavigateToDashboard={onNavigateToDashboard} onNavigateToPresentation={onNavigateToPresentation} />
             <div className="editor-body">
                 {isSidebarOpen ? (
                     <div style={{ width: sidebarWidth, position: 'relative', display: 'flex' }}>
-                        <Sidebar 
+                        <Sidebar
                             slides={slides}
                             currentSlideId={currentSlideId}
                             onSlideSelect={onSlideSelect}
-                            onToggle={toggleSidebar} 
+                            onToggle={toggleSidebar}
                         />
                         <div
                             className="resizer"
@@ -74,11 +77,11 @@ const EditorLayout: React.FC<EditorLayoutProps> = ({ slides, currentSlideId, onS
                     </button>
                 )}
                 {selectedSlide && (
-                    <Workspace 
+                    <Workspace
                         slide={selectedSlide}
                         onUpdateSlide={onUpdateSlide}
-                        isSidebarOpen={isSidebarOpen} 
-                        onToggleSidebar={toggleSidebar} 
+                        isSidebarOpen={isSidebarOpen}
+                        onToggleSidebar={toggleSidebar}
                     />
                 )}
             </div>

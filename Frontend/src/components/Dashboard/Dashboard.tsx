@@ -10,11 +10,12 @@ interface DashboardProps {
     onUpdateSlides: (slides: Slide[]) => void;
     projectMetadata: ProjectMetadata | null;
     onBack: () => void;
+    onNavigateToPresentation?: () => void;
 }
 
 type ViewMode = 'normal' | 'compact';
 
-const Dashboard: React.FC<DashboardProps> = ({ slides, onUpdateSlides, projectMetadata, onBack }) => {
+const Dashboard: React.FC<DashboardProps> = ({ slides, onUpdateSlides, projectMetadata, onBack, onNavigateToPresentation }) => {
     const [viewMode, setViewMode] = useState<ViewMode>('normal');
     const [activeDesignSlide, setActiveDesignSlide] = useState<any>(null);
 
@@ -169,7 +170,7 @@ const Dashboard: React.FC<DashboardProps> = ({ slides, onUpdateSlides, projectMe
 
     return (
         <div className="dashboard-container dark">
-            <Header mode="dashboard" onNavigateToEditor={onBack} />
+            <Header mode="dashboard" onNavigateToEditor={onBack} onNavigateToPresentation={onNavigateToPresentation} />
 
             <main className="dashboard-main">
                 <div className="layout-wrapper">
