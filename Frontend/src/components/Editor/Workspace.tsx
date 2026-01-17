@@ -170,13 +170,11 @@ const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOp
                         width: `${SLIDE_WIDTH * zoomLevel / 100}px`,
                         height: `${SLIDE_HEIGHT * zoomLevel / 100}px`,
                         position: 'relative',
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                     }}>
                         <div className="slide-canvas" style={{
                             width: '960px',
                             height: '540px',
                             backgroundColor: 'white',
-                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                             position: 'absolute',
                             top: PADDING,
                             left: PADDING,
@@ -185,60 +183,31 @@ const Workspace: React.FC<WorkspaceProps> = ({ slide, onUpdateSlide, isSidebarOp
                             transition: 'transform 0.1s ease-out',
                             overflow: 'hidden' // Clip content to slide bounds
                         }}>
-                            {/* Content of Slide 2 as per screenshot */}
-                            <div style={{ border: '1px dashed transparent', padding: '8px', marginBottom: '32px', transition: 'border-color 0.2s', cursor: 'text' }} className="hover:border-gray-300">
-                                <h1 style={{ fontSize: '48px', fontWeight: '700', color: '#111827', margin: 0, letterSpacing: '-0.025em' }}>Q3 Financial Overview</h1>
-                            </div>
-
-                            <div style={{ display: 'flex', gap: '48px', height: '100%' }}>
-                                <div style={{ width: '50%', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                    <div style={{ border: '1px solid #137fec', padding: '8px', margin: '-8px', backgroundColor: 'rgba(19, 127, 236, 0.05)', position: 'relative', cursor: 'move' }}>
-                                        <ul style={{ fontSize: '20px', color: '#374151', listStyleType: 'disc', paddingLeft: '20px', lineHeight: 1.6, margin: 0 }}>
-                                            <li>Revenue growth up by <span style={{ fontWeight: 'bold', color: '#16a34a' }}>15%</span> YoY</li>
-                                            <li>Operating expenses reduced by 8%</li>
-                                            <li>New market acquisition in APAC region</li>
-                                            <li>Product margin increased to 32%</li>
-                                        </ul>
-
-                                        {/* Selection Handles */}
-                                        <div className="handle top-left"></div>
-                                        <div className="handle top-mid"></div>
-                                        <div className="handle top-right"></div>
-                                        <div className="handle mid-left"></div>
-                                        <div className="handle mid-right"></div>
-                                        <div className="handle bot-left"></div>
-                                        <div className="handle bot-mid"></div>
-                                        <div className="handle bot-right"></div>
-                                        <div className="handle-rotate"></div>
-                                    </div>
-
-                                    <div style={{
-                                        marginTop: '16px',
-                                        padding: '16px',
-                                        backgroundColor: '#eff6ff',
-                                        border: '1px solid #dbeafe',
-                                        borderRadius: '8px',
-                                        display: 'flex',
-                                        gap: '12px',
-                                        alignItems: 'center'
-                                    }}>
-                                        <span className="material-symbols-outlined" style={{ color: '#2563eb' }}>tips_and_updates</span>
-                                        <p style={{ fontSize: '14px', color: '#1e40af', margin: 0 }}>Key Takeaway: Strong performance driven by enterprise sector.</p>
-                                    </div>
+                            {slide?.elements?.map(el => (
+                                <div key={el.id} style={{
+                                    position: 'absolute',
+                                    left: el.x,
+                                    top: el.y,
+                                    width: el.width,
+                                    height: el.height,
+                                    backgroundColor: el.style?.backgroundColor || 'transparent',
+                                    border: el.style?.borderWidth ? `${el.style.borderWidth}px solid ${el.style.borderColor}` : 'none',
+                                    borderRadius: el.style?.borderRadius || 0,
+                                    color: el.style?.color || 'black',
+                                    fontSize: el.style?.fontSize ? `${el.style.fontSize}px` : '16px',
+                                    fontWeight: el.style?.fontWeight as any,
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-start',
+                                    fontFamily: 'inherit',
+                                    cursor: 'pointer',
+                                    userSelect: 'none'
+                                }}>
+                                    {el.type === 'text' ? el.content : ''}
                                 </div>
-                                <div style={{ width: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    {/* Placeholder Chart Graphic */}
-                                    <div style={{ width: '100%', height: '200px', position: 'relative' }}>
-                                        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '15%', height: '40%', background: '#60a5fa', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                        <div style={{ position: 'absolute', bottom: 0, left: '20%', width: '15%', height: '55%', background: '#3b82f6', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                        <div style={{ position: 'absolute', bottom: 0, left: '40%', width: '15%', height: '45%', background: '#60a5fa', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                        <div style={{ position: 'absolute', bottom: 0, left: '60%', width: '15%', height: '75%', background: '#2563eb', borderTopLeftRadius: 2, borderTopRightRadius: 2, boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}></div>
-                                        <div style={{ position: 'absolute', bottom: 0, left: '80%', width: '15%', height: '60%', background: '#3b82f6', borderTopLeftRadius: 2, borderTopRightRadius: 2 }}></div>
-                                        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 1, background: '#d1d5db' }}></div>
-                                        <div style={{ position: 'absolute', top: 0, left: 0, height: '100%', width: 1, background: '#d1d5db' }}></div>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>

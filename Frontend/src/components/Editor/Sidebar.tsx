@@ -32,11 +32,48 @@ const Sidebar: React.FC<SidebarProps> = ({ slides = [], currentSlideId, onSlideS
                     >
                         <span className="slide-number">{index + 1}</span>
                         <div className="slide-wrapper">
-                            {/* Placeholder content for thumbnail - eventually use slide.thumbnail or render elements */}
-                            <div style={{ padding: 8, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <div style={{ width: '60%', height: 4, background: '#ddd', marginBottom: 4 }}></div>
-                                <div style={{ width: '40%', height: 4, background: '#eee' }}></div>
-                                {slide.title && <div style={{ fontSize: '8px', marginTop: 4, color: '#666', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{slide.title}</div>}
+                            {/* Slide Thumbnail Renderer */}
+                            <div style={{
+                                width: '100%',
+                                height: '100%',
+                                position: 'relative',
+                                overflow: 'hidden',
+                                backgroundColor: 'white'
+                            }}>
+                                <div style={{
+                                    width: 960,
+                                    height: 540,
+                                    transform: 'scale(0.18)', // Fits nicely in the sidebar thumbnail
+                                    transformOrigin: 'top left',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    pointerEvents: 'none' // Prevent interaction in thumbnail
+                                }}>
+                                    {slide.elements.map(el => (
+                                        <div key={el.id} style={{
+                                            position: 'absolute',
+                                            left: el.x,
+                                            top: el.y,
+                                            width: el.width,
+                                            height: el.height,
+                                            backgroundColor: el.style?.backgroundColor || 'transparent',
+                                            border: el.style?.borderWidth ? `${el.style.borderWidth}px solid ${el.style.borderColor}` : 'none',
+                                            borderRadius: el.style?.borderRadius || 0,
+                                            color: el.style?.color || 'black',
+                                            fontSize: el.style?.fontSize ? `${el.style.fontSize}px` : '16px',
+                                            fontWeight: el.style?.fontWeight as any,
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'flex-start',
+                                            fontFamily: 'inherit'
+                                        }}>
+                                            {el.type === 'text' ? el.content : ''}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

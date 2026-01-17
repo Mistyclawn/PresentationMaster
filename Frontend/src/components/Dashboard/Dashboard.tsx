@@ -88,17 +88,45 @@ const Dashboard: React.FC<DashboardProps> = ({ slides, onUpdateSlides, projectMe
             {/* Drag Handle */}
             <div className="slide-handle">
                 <span className="material-symbols-outlined" style={{ fontSize: 24 }}>drag_indicator</span>
-                <span>{String(slide.id).padStart(2, '0')}</span>
+                <span>{String(index + 1).padStart(2, '0')}</span>
             </div>
 
             {/* Thumb */}
-            <div className="slide-thumb-wrapper">
-                <div style={{ width: '100%', height: '100%', backgroundImage: `url('${slide.thumb}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-                {slide.badge && (
-                    <div style={{ position: 'absolute', top: 8, right: 8, background: slide.badgeColor, color: 'white', fontSize: '10px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: 10, marginRight: 2 }}>warning</span> {slide.badge}
-                    </div>
-                )}
+            <div className="slide-thumb-wrapper" style={{ position: 'relative', overflow: 'hidden', backgroundColor: 'white' }}>
+                <div style={{
+                    width: 960,
+                    height: 540,
+                    transform: 'scale(0.2)', // Scale to fit dashboard card
+                    transformOrigin: 'top left',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    pointerEvents: 'none'
+                }}>
+                    {slide.elements?.map((el: any) => (
+                        <div key={el.id} style={{
+                            position: 'absolute',
+                            left: el.x,
+                            top: el.y,
+                            width: el.width,
+                            height: el.height,
+                            backgroundColor: el.style?.backgroundColor || 'transparent',
+                            border: el.style?.borderWidth ? `${el.style.borderWidth}px solid ${el.style.borderColor}` : 'none',
+                            borderRadius: el.style?.borderRadius || 0,
+                            color: el.style?.color || 'black',
+                            fontSize: el.style?.fontSize ? `${el.style.fontSize}px` : '16px',
+                            fontWeight: el.style?.fontWeight as any,
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            fontFamily: 'inherit'
+                        }}>
+                            {el.type === 'text' ? el.content : ''}
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Inputs - Title input morphs, others collapse */}
