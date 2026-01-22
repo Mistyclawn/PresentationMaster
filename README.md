@@ -123,19 +123,101 @@ PPTXManager/
 └── README.md
 ```
 
-## 개발중 화면 스크린샷
+## 🎬 주요 화면 (Screen Showcase)
 
-<img width="1584" height="990" alt="01" src="https://github.com/user-attachments/assets/875f3922-d8c3-415b-80ef-95783ae1db3b" />
+### 01 초기화면 (Initial Screen)
+<div align="center">
+<table>
+<tr>
+<td>
+<img width="1400" alt="01-초기화면" src="https://github.com/user-attachments/assets/875f3922-d8c3-415b-80ef-95783ae1db3b" />
+</td>
+</tr>
+<tr>
+<td align="center"><b>프로젝트 생성 및 파일 로드</b></td>
+</tr>
+</table>
+</div>
 
-<img width="1584" height="990" alt="02" src="https://github.com/user-attachments/assets/07d1f33d-c1ad-41e4-83e9-9d4ce9b47cc5" />
+---
 
-<img width="1584" height="990" alt="03" src="https://github.com/user-attachments/assets/d45ce522-e6b1-4d23-9560-0d0055b00db4" />
+### 02 메인 에디터 (Main Editor)
+<div align="center">
+<table>
+<tr>
+<td>
+<img width="1400" alt="02-메인에디터" src="https://github.com/user-attachments/assets/07d1f33d-c1ad-41e4-83e9-9d4ce9b47cc5" />
+</td>
+</tr>
+<tr>
+<td align="center"><b>PowerPoint 스타일의 슬라이드 편집기</b></td>
+</tr>
+</table>
+</div>
 
-<img width="1584" height="990" alt="04" src="https://github.com/user-attachments/assets/ff53c81d-9d7b-4ef7-9dca-1a3433202f85" />
+---
 
-<img width="1584" height="990" alt="05" src="https://github.com/user-attachments/assets/9f8ff2bb-f78b-4f3b-a2b6-e56339cf7a70" />
+### 03 메인 대시보드 (Main Dashboard)
+<div align="center">
+<table>
+<tr>
+<td>
+<img width="1400" alt="03-메인대시보드" src="https://github.com/user-attachments/assets/d45ce522-e6b1-4d23-9560-0d0055b00db4" />
+</td>
+</tr>
+<tr>
+<td align="center"><b>프레젠테이션 타임라인 및 내러티브 관리</b></td>
+</tr>
+</table>
+</div>
 
-<img width="1584" height="990" alt="06" src="https://github.com/user-attachments/assets/1481aef7-94b4-43dc-ab2e-6447ebc1f0b2" />
+---
+
+### 04 슬라이드 디자이너 (Slide Design Modal)
+<div align="center">
+<table>
+<tr>
+<td>
+<img width="1400" alt="04-슬라이드디자이너" src="https://github.com/user-attachments/assets/ff53c81d-9d7b-4ef7-9dca-1a3433202f85" />
+</td>
+</tr>
+<tr>
+<td align="center"><b>디자인 일관성 분석 및 템플릿 적용</b></td>
+</tr>
+</table>
+</div>
+
+---
+
+### 05 발표플로우 매니저 (Presentation Flow Manager)
+<div align="center">
+<table>
+<tr>
+<td>
+<img width="1400" alt="05-발표플로우" src="https://github.com/user-attachments/assets/9f8ff2bb-f78b-4f3b-a2b6-e56339cf7a70" />
+</td>
+</tr>
+<tr>
+<td align="center"><b>슬라이드 순서 및 타이밍 조정</b></td>
+</tr>
+</table>
+</div>
+
+---
+
+### 06 발표 시뮬레이터 (Presentation Simulator)
+<div align="center">
+<table>
+<tr>
+<td>
+<img width="1400" alt="06-발표시뮬레이터" src="https://github.com/user-attachments/assets/1481aef7-94b4-43dc-ab2e-6447ebc1f0b2" />
+</td>
+</tr>
+<tr>
+<td align="center"><b>발표 연습 및 실시간 피드백</b></td>
+</tr>
+</table>
+</div>
 
 ---
 
